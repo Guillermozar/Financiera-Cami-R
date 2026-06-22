@@ -1,44 +1,90 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
+import Logo from './Logo';
 
 /**
  * Navbar component for navigation with responsive mobile menu.
+ * Integrates navigation callbacks to transition views instead of static page anchors.
  * 
- * @param {Function} onOpenModal - Callback to trigger opening the lead capture modal.
+ * @param {object} props
+ * @param {string} props.currentView - Current active page view.
+ * @param {Function} props.onNavigate - Callback to navigate between views.
  */
-export default function Navbar({ onOpenModal }) {
+export default function Navbar({ currentView, onNavigate }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
+  const handleNavClick = (view, anchorId = null) => {
+    setIsOpen(false);
+    onNavigate(view, anchorId);
+  };
+
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-white/90 backdrop-blur-xl border-b border-slate-100 transition-all duration-300">
+    <nav className="fixed top-0 left-0 w-full z-50 bg-brand-dark/80 backdrop-blur-xl border-b border-white/5 transition-all duration-100">
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-        {/* Brand/Logo */}
-        <a href="#" className="flex items-center gap-2 group" aria-label="[Nombre de Marca] Inicio">
-          <div className="w-10 h-10 bg-slate-900 rounded-xl flex items-center justify-center text-white font-bold italic transition-transform group-hover:scale-105" aria-hidden="true">
-            [L]
-          </div>
-          <span className="text-xl font-bold tracking-tight text-slate-900">[Nombre de Marca]</span>
-        </a>
+        
+        {/* Brand/Logo (Click to go home) */}
+        <button 
+          onClick={() => handleNavClick('home')} 
+          className="flex items-center gap-2 group cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold/60 rounded-lg p-1" 
+          aria-label="Orianza Inicio"
+        >
+          <Logo size="sm" showSubtitle={true} className="transition-transform group-hover:scale-[1.02]" />
+        </button>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex items-center space-x-10 text-sm font-semibold text-slate-500">
-          <a href="#productos" className="hover:text-slate-900 transition-colors focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 rounded-md px-1">Productos</a>
-          <a href="#seguridad" className="hover:text-slate-900 transition-colors focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 rounded-md px-1">Seguridad</a>
-          <a href="#tarifario" className="hover:text-slate-900 transition-colors focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 rounded-md px-1">Tarifario</a>
+        <div className="hidden md:flex items-center space-x-10 text-sm font-semibold text-slate-400">
           <button 
-            onClick={onOpenModal}
-            className="bg-slate-900 text-white px-6 py-2.5 rounded-full hover:bg-slate-800 active:scale-95 transition-all shadow-md hover:shadow-lg hover:shadow-slate-200"
-            aria-label="Hacerme Cliente de [Nombre de Marca]"
+            onClick={() => handleNavClick('productos')} 
+            className={`hover:text-white transition-colors cursor-pointer focus-visible:ring-2 focus-visible:ring-brand-gold focus-visible:ring-offset-2 rounded-md px-1 ${
+              currentView === 'productos' ? 'text-brand-gold-light' : ''
+            }`}
           >
-            Hacerme Cliente
+            Productos
+          </button>
+          
+          <button 
+            onClick={() => handleNavClick('simular-credito')} 
+            className={`hover:text-white transition-all cursor-pointer focus-visible:ring-2 focus-visible:ring-brand-gold focus-visible:ring-offset-2 rounded-md px-2 py-0.5 ${
+              currentView === 'simular-credito' || currentView === 'simular-ahorro'
+                ? 'text-brand-gold-light border border-brand-gold/20 bg-brand-gold/5 rounded-lg' 
+                : ''
+            }`}
+          >
+            Simuladores
+          </button>
+          
+          <button 
+            onClick={() => handleNavClick('seguridad')} 
+            className={`hover:text-white transition-colors cursor-pointer focus-visible:ring-2 focus-visible:ring-brand-gold focus-visible:ring-offset-2 rounded-md px-1 ${
+              currentView === 'seguridad' ? 'text-brand-gold-light' : ''
+            }`}
+          >
+            Seguridad
+          </button>
+          
+          <button 
+            onClick={() => handleNavClick('soporte')} 
+            className={`hover:text-white transition-colors cursor-pointer focus-visible:ring-2 focus-visible:ring-brand-gold focus-visible:ring-offset-2 rounded-md px-1 ${
+              currentView === 'soporte' ? 'text-brand-gold-light' : ''
+            }`}
+          >
+            Soporte
+          </button>
+
+          <button 
+            onClick={() => handleNavClick('simular-credito')}
+            className="bg-linear-to-r from-brand-gold to-brand-gold-light text-brand-dark px-6 py-2.5 rounded-full hover:brightness-105 active:scale-95 transition-all shadow-lg shadow-brand-gold/10 hover:shadow-brand-gold/25 cursor-pointer font-bold"
+            aria-label="Acceder al simulador de crédito"
+          >
+            Simular Ahora
           </button>
         </div>
 
         {/* Mobile Menu Button */}
         <button 
-          className="md:hidden p-2 text-slate-600 hover:text-slate-900 focus:outline-none rounded-lg"
+          className="md:hidden p-2 text-slate-300 hover:text-white focus:outline-none rounded-lg cursor-pointer"
           onClick={toggleMenu}
           aria-expanded={isOpen}
           aria-controls="mobile-menu"
@@ -48,43 +94,55 @@ export default function Navbar({ onOpenModal }) {
         </button>
       </div>
 
-      {/* Mobile Drawer (Menu colapsable) */}
+      {/* Mobile Drawer */}
       <div 
         id="mobile-menu"
-        className={`md:hidden absolute top-20 left-0 w-full bg-white border-b border-slate-100 shadow-xl transition-all duration-300 ease-in-out origin-top ${
+        className={`md:hidden absolute top-20 left-0 w-full bg-brand-dark/95 backdrop-blur-2xl border-b border-white/10 shadow-2xl transition-all duration-100 ease-out origin-top ${
           isOpen ? 'opacity-100 scale-y-100' : 'opacity-0 scale-y-0 pointer-events-none'
         }`}
       >
-        <div className="flex flex-col p-6 space-y-4 text-base font-semibold text-slate-600">
-          <a 
-            href="#productos" 
-            onClick={() => setIsOpen(false)} 
-            className="hover:text-slate-900 py-2 border-b border-slate-50 transition-colors"
+        <div className="flex flex-col p-6 space-y-4 text-base font-semibold text-slate-300">
+          <button 
+            onClick={() => handleNavClick('productos')} 
+            className={`text-left hover:text-white py-2 border-b border-white/5 transition-colors cursor-pointer ${
+              currentView === 'productos' ? 'text-brand-gold-light font-extrabold' : ''
+            }`}
           >
             Productos
-          </a>
-          <a 
-            href="#seguridad" 
-            onClick={() => setIsOpen(false)} 
-            className="hover:text-slate-900 py-2 border-b border-slate-50 transition-colors"
+          </button>
+          
+          <button 
+            onClick={() => handleNavClick('simular-credito')} 
+            className={`text-left hover:text-white py-2 border-b border-white/5 transition-colors cursor-pointer ${
+              currentView === 'simular-credito' || currentView === 'simular-ahorro' ? 'text-brand-gold-light font-extrabold' : ''
+            }`}
+          >
+            Simuladores
+          </button>
+          
+          <button 
+            onClick={() => handleNavClick('seguridad')} 
+            className={`text-left hover:text-white py-2 border-b border-white/5 transition-colors cursor-pointer ${
+              currentView === 'seguridad' ? 'text-brand-gold-light font-extrabold' : ''
+            }`}
           >
             Seguridad
-          </a>
-          <a 
-            href="#tarifario" 
-            onClick={() => setIsOpen(false)} 
-            className="hover:text-slate-900 py-2 border-b border-slate-50 transition-colors"
-          >
-            Tarifario
-          </a>
+          </button>
+          
           <button 
-            onClick={() => {
-              setIsOpen(false);
-              onOpenModal();
-            }}
-            className="w-full bg-slate-900 text-white py-3 rounded-xl font-bold hover:bg-slate-800 transition-all text-center shadow-lg shadow-slate-100"
+            onClick={() => handleNavClick('soporte')} 
+            className={`text-left hover:text-white py-2 border-b border-white/5 transition-colors cursor-pointer ${
+              currentView === 'soporte' ? 'text-brand-gold-light font-extrabold' : ''
+            }`}
           >
-            Hacerme Cliente
+            Soporte
+          </button>
+          
+          <button 
+            onClick={() => handleNavClick('simular-credito')}
+            className="w-full bg-linear-to-r from-brand-gold to-brand-gold-light text-brand-dark py-3 rounded-xl font-bold hover:brightness-105 active:scale-95 transition-all text-center shadow-lg shadow-brand-gold/10 cursor-pointer"
+          >
+            Simular Ahora
           </button>
         </div>
       </div>

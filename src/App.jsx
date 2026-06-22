@@ -1,65 +1,151 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Navbar from './components/Navbar';
-import HeroSimulator from './components/HeroSimulator';
+import InvitationPage from './components/InvitationPage';
+import Hero from './components/Hero';
 import ProductCards from './components/ProductCards';
 import SecuritySection from './components/SecuritySection';
-import LeadModal from './components/LeadModal';
 import Footer from './components/Footer';
-import { useLoanSimulator } from './hooks/useLoanSimulator';
+
+// New dedicated page components
+import LoanSimulatorPage from './components/LoanSimulatorPage';
+import SavingsSimulatorPage from './components/SavingsSimulatorPage';
+import ProductsPage from './components/ProductsPage';
+import ApplicationPage from './components/ApplicationPage';
+import SecurityPage from './components/SecurityPage';
+import SupportPage from './components/SupportPage';
+import FinancialTipsPage from './components/FinancialTipsPage';
 
 /**
  * Main App component.
- * Coordinates global states, connects the loan simulator custom hook,
- * and renders all sub-components.
+ * Manages view switching between 'invitation', 'home' (brand dashboard), and dedicated sub-pages.
  */
 function App() {
-  const [showLeadModal, setShowLeadModal] = useState(false);
+  const [view, setView] = useState('invitation'); // 'invitation' | 'home' | 'simular-credito' | 'simular-ahorro' | 'productos' | 'solicitud' | 'seguridad' | 'soporte'
+  
+  // Shared state to transfer simulation details to the application wizard
+  const [loanDetails, setLoanDetails] = useState({
+    loanAmount: 15000000,
+    loanTerm: 24,
+    monthlyPayment: 835200
+  });
+  const [savingsDetails, setSavingsDetails] = useState({
+    monthlyDeposit: 500000,
+    savingsTerm: 12,
+    totalDeposits: 6000000,
+    totalInterest: 247000,
+    maturityValue: 6247000
+  });
+  const [modalType, setModalType] = useState('loan'); // 'loan' | 'savings'
 
-  // Invoke the loan simulator hook (Initializes at 15M Gs., 24 months, 15% APR)
-  const {
-    loanAmount,
-    setLoanAmount,
-    loanTerm,
-    setLoanTerm,
-    monthlyPayment
-  } = useLoanSimulator(15000000, 24, 0.15);
+  const handleOpenApplication = (type = 'loan', data = null) => {
+    setModalType(type);
+    if (type === 'loan' && data) {
+      setLoanDetails(data);
+    } else if (type === 'savings' && data) {
+      setSavingsDetails(data);
+    }
+    setView('solicitud');
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  };
 
-  const handleOpenModal = () => setShowLeadModal(true);
-  const handleCloseModal = () => setShowLeadModal(false);
+  const handleNavigate = (targetView, anchorId = null) => {
+    setView(targetView);
+    
+    // Smooth scroll to top of viewport on view switch
+    window.scrollTo({ top: 0, behavior: 'instant' });
+
+    // Handle legacy/support anchor scrolling if returning to home
+    if (anchorId) {
+      setTimeout(() => {
+        const el = document.getElementById(anchorId);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 font-sans antialiased selection:bg-emerald-100">
+    <div className="min-h-screen bg-brand-dark text-slate-200 font-sans antialiased selection:bg-brand-gold/20 selection:text-brand-gold-light">
       
-      {/* 1. Sticky Navigation Bar */}
-      <Navbar onOpenModal={handleOpenModal} />
+      {view === 'invitation' ? (
+        <InvitationPage onEnter={() => setView('home')} />
+      ) : (
+        <div className="flex flex-col min-h-screen justify-between">
+          <div>
+            {/* Sticky Navigation Bar */}
+            <Navbar currentView={view} onNavigate={handleNavigate} />
 
-      {/* 2. Hero Area + Interactive Loan Simulator */}
-      <HeroSimulator 
-        loanAmount={loanAmount}
-        setLoanAmount={setLoanAmount}
-        loanTerm={loanTerm}
-        setLoanTerm={setLoanTerm}
-        monthlyPayment={monthlyPayment}
-        onOpenModal={handleOpenModal}
-      />
+            {/* Dynamic View Rendering */}
+            {view === 'home' && (
+              <div className="animate-fade-in">
+                {/* Brand Dashboard Launcher */}
+                <Hero onNavigate={handleNavigate} onOpenModal={handleOpenApplication} />
+                
+                {/* Product Preview Cards (Inline section for visual depth on home) */}
+                <ProductCards onNavigate={handleNavigate} />
+                
+                {/* Visual Security section on Home */}
+                <SecuritySection />
+              </div>
+            )}
 
-      {/* 3. Product Features Cards (with Responsive Chart.js graph) */}
-      <ProductCards onOpenModal={handleOpenModal} />
+            {view === 'simular-credito' && (
+              <div className="animate-fade-in">
+                <LoanSimulatorPage onNavigate={handleNavigate} onOpenModal={handleOpenApplication} />
+              </div>
+            )}
 
-      {/* 4. Technical Trust and Security Módulo */}
-      <SecuritySection />
+            {view === 'simular-ahorro' && (
+              <div className="animate-fade-in">
+                <SavingsSimulatorPage onNavigate={handleNavigate} onOpenModal={handleOpenApplication} />
+              </div>
+            )}
 
-      {/* 5. Lead Capture Modal (Conditionally rendered, keyboard focus trapped) */}
-      <LeadModal 
-        isOpen={showLeadModal} 
-        onClose={handleCloseModal}
-        loanAmount={loanAmount}
-        loanTerm={loanTerm}
-        monthlyPayment={monthlyPayment}
-      />
+            {view === 'productos' && (
+              <div className="animate-fade-in">
+                <ProductsPage onNavigate={handleNavigate} />
+              </div>
+            )}
 
-      {/* 6. Regulatory & Institutional Compliance Footer */}
-      <Footer />
+            {view === 'solicitud' && (
+              <div className="animate-fade-in">
+                <ApplicationPage 
+                  onNavigate={handleNavigate}
+                  loanAmount={loanDetails.loanAmount}
+                  loanTerm={loanDetails.loanTerm}
+                  monthlyPayment={loanDetails.monthlyPayment}
+                  modalType={modalType}
+                  savingsDetails={savingsDetails}
+                />
+              </div>
+            )}
+
+            {view === 'seguridad' && (
+              <div className="animate-fade-in">
+                <SecurityPage onNavigate={handleNavigate} />
+              </div>
+            )}
+
+            {view === 'soporte' && (
+              <div className="animate-fade-in">
+                <SupportPage onNavigate={handleNavigate} />
+              </div>
+            )}
+
+            {view === 'consejos' && (
+              <div className="animate-fade-in">
+                <FinancialTipsPage onNavigate={handleNavigate} />
+              </div>
+            )}
+          </div>
+
+          <div>
+            {/* Footer */}
+            <Footer />
+          </div>
+        </div>
+      )}
       
     </div>
   );
