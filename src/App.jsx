@@ -15,6 +15,9 @@ import SecurityPage from './components/SecurityPage';
 import SupportPage from './components/SupportPage';
 import FinancialTipsPage from './components/FinancialTipsPage';
 
+// Language Context provider
+import { LanguageProvider } from './context/LanguageContext';
+
 /**
  * Main App component.
  * Manages view switching between 'invitation', 'home' (brand dashboard), and dedicated sub-pages.
@@ -66,7 +69,8 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-brand-dark text-slate-200 font-sans antialiased selection:bg-brand-gold/20 selection:text-brand-gold-light">
+    <LanguageProvider>
+      <div className="min-h-screen bg-brand-dark text-slate-200 font-sans antialiased selection:bg-brand-gold/20 selection:text-brand-gold-light">
       
       {view === 'invitation' ? (
         <InvitationPage onEnter={() => setView('home')} />
@@ -147,7 +151,8 @@ function App() {
         </div>
       )}
       
-    </div>
+      </div>
+    </LanguageProvider>
   );
 }
 

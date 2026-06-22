@@ -9,6 +9,7 @@ import {
   Star
 } from 'lucide-react';
 import { useState } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 
 /**
  * Dedicated Products Page.
@@ -19,36 +20,27 @@ import { useState } from 'react';
  */
 export default function ProductsPage({ onNavigate }) {
   const [activeCategory, setActiveCategory] = useState('all'); // 'all' | 'cuentas' | 'ahorros' | 'creditos'
+  const { language, t } = useLanguage();
 
   const products = [
     {
       id: 'cuentas',
       category: 'cuentas',
       icon: <CreditCard size={28} />,
-      title: "Cuenta Digital Premium",
-      description: "Apertura en minutos de forma 100% online. Una cuenta sin comisiones ni montos mínimos de apertura, diseñada para tu día a día.",
-      features: [
-        "Transferencias SIPAP gratuitas 24/7",
-        "Tarjeta de Débito Mastercard física y digital",
-        "Control total de gastos en tiempo real",
-        "Retiros sin tarjeta en cajeros aliados"
-      ],
-      ctaText: "Solicitar Cuenta",
+      title: t('productsPage.list.cuentas.title'),
+      description: t('productsPage.list.cuentas.description'),
+      features: t('productsPage.list.cuentas.features') || [],
+      ctaText: t('productsPage.list.cuentas.cta'),
       onCtaClick: () => onNavigate('solicitud')
     },
     {
       id: 'ahorros',
       category: 'ahorros',
       icon: <TrendingUp size={28} />,
-      title: "Ahorro Programado Orianza",
-      description: "Haz crecer tus ahorros de forma segura. Define un monto mensual y acumula rendimientos competitivos del 7.5% de tasa pasiva.",
-      features: [
-        "Tasa fija del 7.5% nominal anual",
-        "Capitalización de intereses mensual",
-        "Débito automático de tu ahorro programado",
-        "Aportes extras permitidos en cualquier momento"
-      ],
-      ctaText: "Simular Ahorro",
+      title: t('productsPage.list.ahorros.title'),
+      description: t('productsPage.list.ahorros.description'),
+      features: t('productsPage.list.ahorros.features') || [],
+      ctaText: t('productsPage.list.ahorros.cta'),
       onCtaClick: () => onNavigate('simular-ahorro'),
       featured: true
     },
@@ -56,15 +48,10 @@ export default function ProductsPage({ onNavigate }) {
       id: 'creditos',
       category: 'creditos',
       icon: <Smartphone size={28} />,
-      title: "Crédito al Toque",
-      description: "El financiamiento que necesitas, al instante. Análisis crediticio digital sin papeleos con desembolso inmediato a tu cuenta.",
-      features: [
-        "Tasas fijas en Guaraníes",
-        "Plazos cómodos de 6 a 48 meses",
-        "Sin comisiones por cancelación anticipada",
-        "Aprobación mediante perfil biométrico digital"
-      ],
-      ctaText: "Simular Crédito",
+      title: t('productsPage.list.creditos.title'),
+      description: t('productsPage.list.creditos.description'),
+      features: t('productsPage.list.creditos.features') || [],
+      ctaText: t('productsPage.list.creditos.cta'),
       onCtaClick: () => onNavigate('simular-credito')
     }
   ];
@@ -81,26 +68,26 @@ export default function ProductsPage({ onNavigate }) {
         className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors duration-100 mb-8 self-start text-sm font-bold group cursor-pointer"
       >
         <ArrowLeft size={16} className="group-hover:-translate-x-0.5 transition-transform duration-100" />
-        <span>Volver al Inicio</span>
+        <span>{t('common.backToHome')}</span>
       </button>
 
       {/* Header */}
       <div className="mb-12 space-y-3">
         <h1 className="text-4xl font-serif font-normal text-white tracking-tight">
-          Nuestras Soluciones Financieras
+          {t('productsPage.title')}
         </h1>
         <p className="text-slate-400 text-sm md:text-base font-light max-w-xl">
-          Diseñamos productos digitales transparentes, con las mejores tasas y sin cargos ocultos para impulsar tus planes.
+          {t('productsPage.desc')}
         </p>
       </div>
 
       {/* Category Tabs */}
       <div className="flex flex-wrap gap-2.5 mb-10 border-b border-white/5 pb-6">
         {[
-          { id: 'all', label: 'Todos los productos' },
-          { id: 'cuentas', label: 'Cuentas Digitales' },
-          { id: 'ahorros', label: 'Ahorro Programado' },
-          { id: 'creditos', label: 'Créditos Personales' }
+          { id: 'all', label: t('productsPage.categories.all') },
+          { id: 'cuentas', label: t('productsPage.categories.cuentas') },
+          { id: 'ahorros', label: t('productsPage.categories.ahorros') },
+          { id: 'creditos', label: t('productsPage.categories.creditos') }
         ].map(tab => (
           <button
             key={tab.id}
@@ -130,7 +117,7 @@ export default function ProductsPage({ onNavigate }) {
             {p.featured && (
               <div className="absolute -top-4 left-8 bg-linear-to-r from-brand-gold to-brand-gold-light text-brand-dark text-[9px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider shadow-md flex items-center gap-1">
                 <Star size={10} className="fill-brand-dark" />
-                <span>Recomendado</span>
+                <span>{t('productsPage.recommended')}</span>
               </div>
             )}
 
@@ -175,47 +162,47 @@ export default function ProductsPage({ onNavigate }) {
 
       {/* Comparison Table */}
       <div className="bg-brand-card/40 border border-white/5 rounded-3xl p-6 lg:p-8 space-y-6">
-        <h3 className="text-xl font-serif font-normal text-white">Comparativa de Servicios</h3>
+        <h3 className="text-xl font-serif font-normal text-white">{t('productsPage.comparisonTitle')}</h3>
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs border-collapse">
             <thead>
               <tr className="border-b border-white/10 text-slate-400 uppercase tracking-widest font-extrabold">
-                <th className="pb-4 font-bold">Característica</th>
-                <th className="pb-4 font-bold">Cuenta Digital</th>
-                <th className="pb-4 font-bold">Ahorro Programado</th>
-                <th className="pb-4 font-bold">Crédito al Toque</th>
+                <th className="pb-4 font-bold">{t('productsPage.table.feature')}</th>
+                <th className="pb-4 font-bold">{t('productsPage.table.digital')}</th>
+                <th className="pb-4 font-bold">{t('productsPage.table.savings')}</th>
+                <th className="pb-4 font-bold">{t('productsPage.table.credits')}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-white/5 text-slate-300">
               <tr>
-                <td className="py-4 font-bold text-white">Costo de Mantenimiento</td>
-                <td className="py-4">Gs. 0 (Gratuito)</td>
+                <td className="py-4 font-bold text-white">{t('productsPage.table.maintenance')}</td>
+                <td className="py-4">{t('productsPage.table.maintenanceVal')}</td>
                 <td className="py-4">Gs. 0</td>
                 <td className="py-4">Gs. 0</td>
               </tr>
               <tr>
-                <td className="py-4 font-bold text-white">Tasa Efectiva Anual (TEA)</td>
+                <td className="py-4 font-bold text-white">{t('productsPage.table.rate')}</td>
                 <td className="py-4">—</td>
-                <td className="py-4 text-emerald-400">7.5% Pasiva (a tu favor)</td>
-                <td className="py-4 text-brand-gold-light">17.5% Activa (fija)</td>
+                <td className="py-4 text-emerald-400">{t('productsPage.table.rateSavingsVal')}</td>
+                <td className="py-4 text-brand-gold-light">{t('productsPage.table.rateCreditsVal')}</td>
               </tr>
               <tr>
-                <td className="py-4 font-bold text-white">Plazos de contratación</td>
-                <td className="py-4">Indefinido</td>
-                <td className="py-4">12, 24, 36, 60 meses</td>
-                <td className="py-4">6, 12, 24, 36, 48 meses</td>
+                <td className="py-4 font-bold text-white">{t('productsPage.table.terms')}</td>
+                <td className="py-4">{t('productsPage.table.termsDigitalVal')}</td>
+                <td className="py-4">12, 24, 36, 60 {language === 'es' ? 'meses' : 'months'}</td>
+                <td className="py-4">6, 12, 24, 36, 48 {language === 'es' ? 'meses' : 'months'}</td>
               </tr>
               <tr>
-                <td className="py-4 font-bold text-white">Requisitos de Ingreso</td>
-                <td className="py-4">Cédula vigente</td>
-                <td className="py-4">Cédula vigente</td>
-                <td className="py-4">Cédula + Perfil biométrico</td>
+                <td className="py-4 font-bold text-white">{t('productsPage.table.requirements')}</td>
+                <td className="py-4">{t('productsPage.table.requirementsVal')}</td>
+                <td className="py-4">{t('productsPage.table.requirementsVal')}</td>
+                <td className="py-4">{t('productsPage.table.requirementsCreditsVal')}</td>
               </tr>
               <tr>
-                <td className="py-4 font-bold text-white">Canal de Solicitud</td>
-                <td className="py-4 text-brand-gold-light">App Móvil 100% digital</td>
-                <td className="py-4 text-brand-gold-light">App Móvil / Web Hub</td>
-                <td className="py-4 text-brand-gold-light">App Móvil / Web Hub</td>
+                <td className="py-4 font-bold text-white">{t('productsPage.table.channel')}</td>
+                <td className="py-4 text-brand-gold-light">{t('productsPage.table.channelDigitalVal')}</td>
+                <td className="py-4 text-brand-gold-light">{t('productsPage.table.channelVal')}</td>
+                <td className="py-4 text-brand-gold-light">{t('productsPage.table.channelVal')}</td>
               </tr>
             </tbody>
           </table>

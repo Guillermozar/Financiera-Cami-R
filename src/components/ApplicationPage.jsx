@@ -9,6 +9,7 @@ import {
   FileText,
   ChevronRight
 } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 /**
  * Dedicated Full-Page Multi-Step Application Wizard.
@@ -29,6 +30,7 @@ export default function ApplicationPage({
   modalType = 'loan',
   savingsDetails = null
 }) {
+  const { language, t } = useLanguage();
   const [step, setStep] = useState(1); // 1: Personal Data, 2: Financial Profile, 3: Processing / Success
   const [formData, setFormData] = useState({
     name: '',
@@ -58,25 +60,25 @@ export default function ApplicationPage({
     const newErrors = {};
     const nameTrimmed = formData.name.trim();
     if (!nameTrimmed) {
-      newErrors.name = 'El nombre y apellido son obligatorios';
+      newErrors.name = t('applicationPage.errors.nameEmpty');
     } else if (nameTrimmed.length < 5) {
-      newErrors.name = 'Mínimo 5 caracteres para nombre completo';
+      newErrors.name = t('applicationPage.errors.nameShort');
     } else if (!nameTrimmed.includes(' ')) {
-      newErrors.name = 'Ingresa nombre y apellido separados por espacio';
+      newErrors.name = t('applicationPage.errors.nameSpace');
     }
 
     const ciNum = Number(formData.ci);
     if (!formData.ci) {
-      newErrors.ci = 'La Cédula de Identidad es obligatoria';
+      newErrors.ci = t('applicationPage.errors.ciEmpty');
     } else if (isNaN(ciNum) || ciNum < 100000 || ciNum > 99999999) {
-      newErrors.ci = 'Ingresa una Cédula válida (de 6 a 8 dígitos)';
+      newErrors.ci = t('applicationPage.errors.ciInvalid');
     }
 
     const whatsappClean = formData.whatsapp.replace(/\D/g, '');
     if (!formData.whatsapp) {
-      newErrors.whatsapp = 'El número de WhatsApp es obligatorio';
+      newErrors.whatsapp = t('applicationPage.errors.whatsappEmpty');
     } else if (!/^09[5-9]\d{7}$/.test(whatsappClean)) {
-      newErrors.whatsapp = 'Ingresa un celular válido (ej. 0981 123 456)';
+      newErrors.whatsapp = t('applicationPage.errors.whatsappInvalid');
     }
 
     setErrors(newErrors);
@@ -86,7 +88,7 @@ export default function ApplicationPage({
   const validateStep2 = () => {
     const newErrors = {};
     if (!formData.acceptTerms) {
-      newErrors.acceptTerms = 'Debes aceptar la política de protección de datos personales';
+      newErrors.acceptTerms = t('applicationPage.errors.terms');
     }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -132,7 +134,7 @@ export default function ApplicationPage({
           className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors duration-100 mb-8 self-start text-sm font-bold group cursor-pointer"
         >
           <ArrowLeft size={16} className="group-hover:-translate-x-0.5 transition-transform duration-100" />
-          <span>{step === 2 ? 'Volver al Paso 1' : 'Cancelar y Volver'}</span>
+          <span>{step === 2 ? t('applicationPage.backStep') : t('applicationPage.cancel')}</span>
         </button>
       )}
 
@@ -143,14 +145,14 @@ export default function ApplicationPage({
             <span className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold ${
               step === 1 ? 'bg-brand-gold text-brand-dark' : 'bg-brand-gold/20 text-brand-gold-light'
             }`}>1</span>
-            <span className="text-xs font-bold text-slate-300">Datos Personales</span>
+            <span className="text-xs font-bold text-slate-300">{t('applicationPage.step1')}</span>
           </div>
           <div className="h-px bg-white/10 flex-1" />
           <div className="flex items-center gap-2">
             <span className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold ${
               step === 2 ? 'bg-brand-gold text-brand-dark' : 'bg-white/5 text-slate-500'
             }`}>2</span>
-            <span className="text-xs font-bold text-slate-400">Perfil Financiero</span>
+            <span className="text-xs font-bold text-slate-400">{t('applicationPage.step2')}</span>
           </div>
         </div>
       )}
@@ -166,11 +168,11 @@ export default function ApplicationPage({
                 <CheckCircle2 size={40} />
               </div>
               <div className="space-y-2">
-                <h2 className="text-2xl font-serif font-normal text-white">¡Solicitud Procesada!</h2>
+                <h2 className="text-2xl font-serif font-normal text-white">{t('applicationPage.successTitle')}</h2>
                 <p className="text-slate-400 text-xs md:text-sm max-w-sm mx-auto leading-relaxed font-light">
                   {isLoan
-                    ? '¡Tu perfil califica! Hemos pre-aprobado tu solicitud. Un asesor se pondrá en contacto contigo vía WhatsApp en los próximos minutos para validar tus comprobantes.'
-                    : '¡Excelente elección! Hemos recibido tus datos y procedemos a la pre-apertura de tu cuenta de ahorro programado. Te contactaremos vía WhatsApp para coordinar el primer depósito.'
+                    ? t('applicationPage.successDescLoan')
+                    : t('applicationPage.successDescSavings')
                   }
                 </p>
               </div>
@@ -178,33 +180,33 @@ export default function ApplicationPage({
               {/* Shared Summary Card */}
               {isLoan ? (
                 <div className="bg-[#131D2E]/80 rounded-2xl p-5 text-left text-xs text-slate-300 border border-white/5 max-w-sm mx-auto">
-                  <p className="font-extrabold text-brand-gold-light uppercase tracking-wider mb-2">Resumen del Préstamo:</p>
+                  <p className="font-extrabold text-brand-gold-light uppercase tracking-wider mb-2">{t('applicationPage.recapLoan')}</p>
                   <div className="flex justify-between mb-1">
-                    <span>Monto Solicitado:</span>
+                    <span>{t('applicationPage.recapAmount')}</span>
                     <span className="font-bold text-white">Gs. {loanAmount.toLocaleString('es-PY')}</span>
                   </div>
                   <div className="flex justify-between mb-1">
-                    <span>Plazo de Amortización:</span>
-                    <span className="font-bold text-white">{loanTerm} meses</span>
+                    <span>{t('applicationPage.recapTerm')}</span>
+                    <span className="font-bold text-white">{loanTerm} {language === 'es' ? 'meses' : 'months'}</span>
                   </div>
                   <div className="flex justify-between border-t border-white/5 pt-2 mt-2">
-                    <span>Cuota Mensual Estimada:</span>
+                    <span>{t('applicationPage.recapPayment')}</span>
                     <span className="font-bold text-brand-gold">Gs. {monthlyPayment.toLocaleString('es-PY')}</span>
                   </div>
                 </div>
               ) : (
                 <div className="bg-[#131D2E]/80 rounded-2xl p-5 text-left text-xs text-slate-300 border border-white/5 max-w-sm mx-auto">
-                  <p className="font-extrabold text-brand-gold-light uppercase tracking-wider mb-2">Resumen de Ahorro:</p>
+                  <p className="font-extrabold text-brand-gold-light uppercase tracking-wider mb-2">{t('applicationPage.recapSavings')}</p>
                   <div className="flex justify-between mb-1">
-                    <span>Depósito Mensual:</span>
+                    <span>{t('applicationPage.recapDeposit')}</span>
                     <span className="font-bold text-white">Gs. {savingsDetails?.monthlyDeposit.toLocaleString('es-PY')}</span>
                   </div>
                   <div className="flex justify-between mb-1">
-                    <span>Plazo del Ahorro:</span>
-                    <span className="font-bold text-white">{savingsDetails?.savingsTerm} meses</span>
+                    <span>{t('applicationPage.recapTermSavings')}</span>
+                    <span className="font-bold text-white">{savingsDetails?.savingsTerm} {language === 'es' ? 'meses' : 'months'}</span>
                   </div>
                   <div className="flex justify-between border-t border-white/5 pt-2 mt-2">
-                    <span>Total estimado al Vencimiento:</span>
+                    <span>{t('applicationPage.recapMaturity')}</span>
                     <span className="font-bold text-brand-gold">Gs. {savingsDetails?.maturityValue.toLocaleString('es-PY')}</span>
                   </div>
                 </div>
@@ -214,7 +216,7 @@ export default function ApplicationPage({
                 onClick={() => onNavigate('home')}
                 className="bg-linear-to-r from-brand-gold to-brand-gold-light text-brand-dark py-3.5 rounded-2xl font-bold hover:brightness-105 active:scale-95 transition-all duration-100 w-full max-w-xs cursor-pointer block mx-auto text-sm"
               >
-                Volver al Hub Digital
+                {t('applicationPage.returnHub')}
               </button>
             </div>
           ) : status === 'error' ? (
@@ -224,9 +226,9 @@ export default function ApplicationPage({
                 <AlertCircle size={40} />
               </div>
               <div className="space-y-2">
-                <h2 className="text-2xl font-serif font-normal text-white">Inconveniente técnico</h2>
+                <h2 className="text-2xl font-serif font-normal text-white">{t('applicationPage.errorTitle')}</h2>
                 <p className="text-slate-400 text-xs md:text-sm max-w-sm mx-auto leading-relaxed font-light">
-                  No pudimos establecer conexión para pre-evaluar tu solicitud. Intenta nuevamente en unos momentos.
+                  {t('applicationPage.errorDesc')}
                 </p>
               </div>
               <div className="flex gap-3 max-w-xs mx-auto">
@@ -237,13 +239,13 @@ export default function ApplicationPage({
                   }}
                   className="flex-1 bg-brand-gold text-brand-dark py-3 rounded-xl font-bold hover:brightness-105 cursor-pointer text-xs"
                 >
-                  Reintentar
+                  {t('applicationPage.retry')}
                 </button>
                 <button
                   onClick={() => onNavigate('home')}
                   className="flex-1 bg-white/5 text-slate-300 py-3 rounded-xl font-bold hover:bg-white/10 cursor-pointer text-xs"
                 >
-                  Salir
+                  {t('applicationPage.exit')}
                 </button>
               </div>
             </div>
@@ -252,9 +254,9 @@ export default function ApplicationPage({
             <div className="text-center py-12 space-y-6">
               <Loader2 className="animate-spin text-brand-gold mx-auto" size={48} />
               <div className="space-y-2">
-                <h3 className="text-xl font-bold text-white">Evaluando tu solicitud...</h3>
+                <h3 className="text-xl font-bold text-white">{t('applicationPage.evaluating')}</h3>
                 <p className="text-slate-400 text-xs font-light max-w-xs mx-auto">
-                  Analizando perfil financiero en tiempo real. Esto tomará sólo unos segundos.
+                  {t('applicationPage.evaluatingDesc')}
                 </p>
               </div>
             </div>
@@ -266,12 +268,12 @@ export default function ApplicationPage({
               {step === 1 && (
                 <div className="space-y-5 animate-fade-in">
                   <div className="mb-4">
-                    <h2 className="text-2xl font-serif font-normal text-white mb-2">Completá tus datos</h2>
-                    <p className="text-slate-400 text-xs font-light">Ingresá tu información tal cual aparece en tu Cédula de Identidad.</p>
+                    <h2 className="text-2xl font-serif font-normal text-white mb-2">{t('applicationPage.title')}</h2>
+                    <p className="text-slate-400 text-xs font-light">{t('applicationPage.desc')}</p>
                   </div>
 
                   <div>
-                    <label htmlFor="name" className="block text-[10px] font-extrabold text-slate-400 uppercase tracking-widest mb-2">Nombre y Apellido *</label>
+                    <label htmlFor="name" className="block text-[10px] font-extrabold text-slate-400 uppercase tracking-widest mb-2">{t('applicationPage.nameLabel')}</label>
                     <div className="relative">
                       <User size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" />
                       <input
@@ -290,7 +292,7 @@ export default function ApplicationPage({
                   </div>
 
                   <div>
-                    <label htmlFor="ci" className="block text-[10px] font-extrabold text-slate-400 uppercase tracking-widest mb-2">Cédula de Identidad *</label>
+                    <label htmlFor="ci" className="block text-[10px] font-extrabold text-slate-400 uppercase tracking-widest mb-2">{t('applicationPage.ciLabel')}</label>
                     <div className="relative">
                       <FileText size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" />
                       <input
@@ -309,7 +311,7 @@ export default function ApplicationPage({
                   </div>
 
                   <div>
-                    <label htmlFor="whatsapp" className="block text-[10px] font-extrabold text-slate-400 uppercase tracking-widest mb-2">Número de WhatsApp *</label>
+                    <label htmlFor="whatsapp" className="block text-[10px] font-extrabold text-slate-400 uppercase tracking-widest mb-2">{t('applicationPage.whatsappLabel')}</label>
                     <div className="relative">
                       <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm font-semibold text-slate-500">+595</span>
                       <input
@@ -332,7 +334,7 @@ export default function ApplicationPage({
                     onClick={handleNextStep}
                     className="w-full bg-linear-to-r from-brand-gold to-brand-gold-light text-brand-dark py-4 rounded-2xl font-bold flex items-center justify-center gap-2 hover:brightness-105 active:scale-[0.99] transition-all duration-100 text-sm cursor-pointer shadow-lg shadow-brand-gold/10"
                   >
-                    <span>Siguiente Paso</span>
+                    <span>{t('applicationPage.next')}</span>
                     <ChevronRight size={16} />
                   </button>
                 </div>
@@ -342,12 +344,12 @@ export default function ApplicationPage({
               {step === 2 && (
                 <div className="space-y-5 animate-fade-in">
                   <div className="mb-4">
-                    <h2 className="text-2xl font-serif font-normal text-white mb-2">Perfil Financiero</h2>
-                    <p className="text-slate-400 text-xs font-light">Ayúdanos a evaluar tu capacidad de pago seleccionando tu situación actual.</p>
+                    <h2 className="text-2xl font-serif font-normal text-white mb-2">{t('applicationPage.step2')}</h2>
+                    <p className="text-slate-400 text-xs font-light">{t('applicationPage.disclaimer')}</p>
                   </div>
 
                   <div>
-                    <label htmlFor="employment" className="block text-[10px] font-extrabold text-slate-400 uppercase tracking-widest mb-2">Tipo de Empleo</label>
+                    <label htmlFor="employment" className="block text-[10px] font-extrabold text-slate-400 uppercase tracking-widest mb-2">{t('applicationPage.employmentLabel')}</label>
                     <select
                       id="employment"
                       name="employment"
@@ -355,15 +357,15 @@ export default function ApplicationPage({
                       onChange={handleInputChange}
                       className="w-full p-4 bg-slate-950 border border-white/5 rounded-2xl text-slate-200 focus:outline-none focus:border-brand-gold text-sm cursor-pointer"
                     >
-                      <option value="asalariado">Asalariado / Dependiente</option>
-                      <option value="independiente">Profesional Independiente</option>
-                      <option value="comerciante">Comerciante / Empresa propia</option>
-                      <option value="jubilado">Jubilado</option>
+                      <option value="asalariado">{t('applicationPage.employmentOptions.asalariado')}</option>
+                      <option value="independiente">{t('applicationPage.employmentOptions.independiente')}</option>
+                      <option value="comerciante">{t('applicationPage.employmentOptions.comerciante')}</option>
+                      <option value="jubilado">{t('applicationPage.employmentOptions.jubilado')}</option>
                     </select>
                   </div>
 
                   <div>
-                    <label htmlFor="income" className="block text-[10px] font-extrabold text-slate-400 uppercase tracking-widest mb-2">Rango de Ingresos Mensuales (Gs.)</label>
+                    <label htmlFor="income" className="block text-[10px] font-extrabold text-slate-400 uppercase tracking-widest mb-2">{t('applicationPage.incomeLabel')}</label>
                     <select
                       id="income"
                       name="income"
@@ -371,11 +373,11 @@ export default function ApplicationPage({
                       onChange={handleInputChange}
                       className="w-full p-4 bg-slate-950 border border-white/5 rounded-2xl text-slate-200 focus:outline-none focus:border-brand-gold text-sm cursor-pointer"
                     >
-                      <option value="menos-3000000">Menos de Gs. 3.000.000</option>
-                      <option value="3000000-5000000">Gs. 3.000.000 - Gs. 5.000.000</option>
-                      <option value="5000000-10000000">Gs. 5.000.000 - Gs. 10.000.000</option>
-                      <option value="10000000-20000000">Gs. 10.000.000 - Gs. 20.000.000</option>
-                      <option value="mas-20000000">Más de Gs. 20.000.000</option>
+                      <option value="menos-3000000">{t('applicationPage.incomeOptions.less3')}</option>
+                      <option value="3000000-5000000">{t('applicationPage.incomeOptions.bracket1')}</option>
+                      <option value="5000000-10000000">{t('applicationPage.incomeOptions.bracket2')}</option>
+                      <option value="10000000-20000000">{t('applicationPage.incomeOptions.bracket3')}</option>
+                      <option value="mas-20000000">{t('applicationPage.incomeOptions.more20')}</option>
                     </select>
                   </div>
 
@@ -390,7 +392,7 @@ export default function ApplicationPage({
                         className="mt-1 w-4.5 h-4.5 rounded-sm bg-slate-950 border-white/10 text-brand-gold focus:ring-0 focus:ring-offset-0 accent-brand-gold"
                       />
                       <span className="leading-relaxed font-light">
-                        Autorizo a evaluar mi perfil crediticio conforme a la <strong>Ley N° 6534/20 de Protección de Datos Personales</strong> en Paraguay.
+                        {t('applicationPage.legalText')}
                       </span>
                     </label>
                     {errors.acceptTerms && <p className="text-xs text-red-400 mt-1.5 font-semibold flex items-center gap-1"><AlertCircle size={12} /><span>{errors.acceptTerms}</span></p>}
@@ -400,7 +402,7 @@ export default function ApplicationPage({
                     type="submit"
                     className="w-full bg-linear-to-r from-brand-gold to-brand-gold-light text-brand-dark py-4.5 rounded-2xl font-bold flex items-center justify-center gap-2 hover:brightness-105 active:scale-[0.99] transition-all duration-100 text-sm cursor-pointer shadow-lg shadow-brand-gold/10"
                   >
-                    <span>Finalizar Evaluación</span>
+                    <span>{t('applicationPage.step3')}</span>
                   </button>
                 </div>
               )}

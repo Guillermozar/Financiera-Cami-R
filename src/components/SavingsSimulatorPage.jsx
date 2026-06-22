@@ -5,6 +5,7 @@ import {
   DollarSign
 } from 'lucide-react';
 import { useSavingsSimulator } from '../hooks/useSavingsSimulator';
+import { useLanguage } from '../context/LanguageContext';
 import { 
   Chart as ChartJS, 
   CategoryScale, 
@@ -38,6 +39,7 @@ ChartJS.register(
  * @param {Function} props.onOpenModal - Callback to start savings plan request.
  */
 export default function SavingsSimulatorPage({ onNavigate, onOpenModal }) {
+  const { language, t } = useLanguage();
   const {
     monthlyDeposit,
     setMonthlyDeposit,
@@ -53,7 +55,7 @@ export default function SavingsSimulatorPage({ onNavigate, onOpenModal }) {
   const savingsChartData = {
     labels: chartLabels,
     datasets: [{
-      label: 'Crecimiento de Capital',
+      label: t('savingsSimulator.chartTitle'),
       data: chartData,
       fill: true,
       backgroundColor: 'rgba(197, 168, 128, 0.05)',
@@ -83,7 +85,8 @@ export default function SavingsSimulatorPage({ onNavigate, onOpenModal }) {
         displayColors: false,
         callbacks: {
           label: function(context) {
-            return `Valor: Gs. ${context.parsed.y.toLocaleString('es-PY')}`;
+            const labelText = language === 'es' ? 'Valor' : 'Value';
+            return `${labelText}: Gs. ${context.parsed.y.toLocaleString('es-PY')}`;
           }
         }
       } 
@@ -108,17 +111,17 @@ export default function SavingsSimulatorPage({ onNavigate, onOpenModal }) {
         className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors duration-100 mb-8 self-start text-sm font-bold group cursor-pointer"
       >
         <ArrowLeft size={16} className="group-hover:-translate-x-0.5 transition-transform duration-100" />
-        <span>Volver al Inicio</span>
+        <span>{t('common.backToHome')}</span>
       </button>
 
       {/* Header */}
       <div className="text-left mb-12 space-y-3">
         <h1 className="text-4xl font-serif font-normal text-white tracking-tight flex items-center gap-3">
           <TrendingUp className="text-brand-gold shrink-0" size={32} />
-          <span>Simulador de Ahorro Programado</span>
+          <span>{t('savingsSimulator.title')}</span>
         </h1>
         <p className="text-slate-400 text-sm md:text-base font-light max-w-xl">
-          Visualizá el crecimiento de tus fondos mes a mes con nuestra tasa de interés del 7.5% anual con capitalización mensual.
+          {t('savingsSimulator.desc')}
         </p>
       </div>
 
@@ -133,7 +136,7 @@ export default function SavingsSimulatorPage({ onNavigate, onOpenModal }) {
               <div>
                 <div className="flex justify-between items-baseline mb-2">
                   <label htmlFor="savings-deposit-slider" className="text-sm font-semibold text-slate-400">
-                    Ahorro Mensual
+                    {t('savingsSimulator.labelDeposit')}
                   </label>
                   <span className="font-extrabold text-2xl text-brand-gold-light">
                     Gs. {monthlyDeposit.toLocaleString('es-PY')}
@@ -157,25 +160,25 @@ export default function SavingsSimulatorPage({ onNavigate, onOpenModal }) {
 
               <div>
                 <span id="savings-term-label" className="block text-sm font-semibold text-slate-400 mb-3">
-                  Plazo del Plan de Ahorro
+                  {t('savingsSimulator.labelTerm')}
                 </span>
                 <div role="radiogroup" aria-labelledby="savings-term-label" className="grid grid-cols-4 gap-2">
-                  {[12, 24, 36, 60].map((t) => {
-                    const isSelected = savingsTerm === t;
+                  {[12, 24, 36, 60].map((tVal) => {
+                    const isSelected = savingsTerm === tVal;
                     return (
                       <button
-                        key={t}
+                        key={tVal}
                         type="button"
                         role="radio"
                         aria-checked={isSelected}
-                        onClick={() => setSavingsTerm(t)}
+                        onClick={() => setSavingsTerm(tVal)}
                         className={`py-2.5 rounded-lg text-xs font-bold transition-all duration-100 cursor-pointer ${
                           isSelected 
                             ? 'bg-linear-to-r from-brand-gold to-brand-gold-light text-brand-dark shadow-md' 
                             : 'bg-brand-card/85 text-slate-400 hover:bg-white/5 border border-white/5'
                         }`}
                       >
-                        {t} meses
+                        {tVal} {language === 'es' ? 'meses' : 'months'}
                       </button>
                     );
                   })}
@@ -184,11 +187,11 @@ export default function SavingsSimulatorPage({ onNavigate, onOpenModal }) {
 
               <div className="bg-brand-card/65 p-6 rounded-2xl border border-white/5 space-y-2 text-center relative overflow-hidden shadow-xl">
                 <div className="absolute top-0 left-0 w-16 h-16 bg-brand-gold/5 rounded-full blur-lg pointer-events-none" />
-                <span className="text-[10px] uppercase tracking-wider text-slate-400 block font-bold">Recibirás al vencimiento</span>
+                <span className="text-[10px] uppercase tracking-wider text-slate-400 block font-bold">{t('savingsSimulator.estimatedReturn')}</span>
                 <span className="text-2xl lg:text-3xl font-extrabold text-brand-gold-light block">Gs. {maturityValue.toLocaleString('es-PY')}</span>
                 <div className="flex justify-between text-[11px] text-slate-400 pt-3 mt-1 border-t border-white/5 leading-relaxed font-light">
-                  <span>Aportes: Gs. {totalDeposits.toLocaleString('es-PY')}</span>
-                  <span className="text-brand-gold-light font-medium">+ Interés (7.5%): Gs. {totalInterest.toLocaleString('es-PY')}</span>
+                  <span>{t('savingsSimulator.recap.deposits')} Gs. {totalDeposits.toLocaleString('es-PY')}</span>
+                  <span className="text-brand-gold-light font-medium">{t('savingsSimulator.recap.interest')} Gs. {totalInterest.toLocaleString('es-PY')}</span>
                 </div>
               </div>
 
@@ -202,7 +205,7 @@ export default function SavingsSimulatorPage({ onNavigate, onOpenModal }) {
                 })} 
                 className="w-full bg-linear-to-r from-brand-gold to-brand-gold-light text-brand-dark py-4 rounded-2xl font-bold flex items-center justify-center gap-2 hover:brightness-105 active:scale-[0.99] transition-all duration-100 group text-base shadow-lg cursor-pointer"
               >
-                <span>Comenzar este ahorro</span>
+                <span>{t('savingsSimulator.cta')}</span>
                 <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform duration-100" />
               </button>
             </div>
@@ -210,8 +213,8 @@ export default function SavingsSimulatorPage({ onNavigate, onOpenModal }) {
             {/* Right Column: Projections Chart */}
             <div className="space-y-4 w-full">
               <div className="flex justify-between items-center px-2">
-                <span className="text-xs font-bold uppercase tracking-wider text-slate-500">Proyección de Crecimiento</span>
-                <span className="text-[10px] font-bold bg-brand-gold/10 text-brand-gold px-2.5 py-1 rounded-full border border-brand-gold/20">7.5% Tasa Fija</span>
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-500">{t('savingsSimulator.chartTitle')}</span>
+                <span className="text-[10px] font-bold bg-brand-gold/10 text-brand-gold px-2.5 py-1 rounded-full border border-brand-gold/20">{t('savingsSimulator.chartNotice')}</span>
               </div>
               <div className="h-64 lg:h-80 w-full relative bg-brand-card/25 rounded-2xl p-4 border border-white/5 shadow-inner" aria-label="Gráfico de rendimiento de ahorro programado">
                 <Line data={savingsChartData} options={chartOptions} />

@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import { useState } from 'react';
 import { useLoanSimulator } from '../hooks/useLoanSimulator';
+import { useLanguage } from '../context/LanguageContext';
 
 /**
  * Dedicated Loan Simulator Page.
@@ -19,6 +20,7 @@ import { useLoanSimulator } from '../hooks/useLoanSimulator';
 export default function LoanSimulatorPage({ onNavigate, onOpenModal }) {
   const [showDetails, setShowDetails] = useState(false);
   const loanTerms = [6, 12, 24, 36, 48];
+  const { t } = useLanguage();
 
   const {
     loanAmount,
@@ -41,17 +43,17 @@ export default function LoanSimulatorPage({ onNavigate, onOpenModal }) {
         className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors duration-100 mb-8 self-start text-sm font-bold group cursor-pointer"
       >
         <ArrowLeft size={16} className="group-hover:-translate-x-0.5 transition-transform duration-100" />
-        <span>Volver al Inicio</span>
+        <span>{t('common.backToHome')}</span>
       </button>
 
       {/* Header */}
       <div className="text-left mb-12 space-y-3">
         <h1 className="text-4xl font-serif font-normal text-white tracking-tight flex items-center gap-3">
           <Calculator className="text-brand-gold shrink-0" size={32} />
-          <span>Simulador de Crédito</span>
+          <span>{t('loanSimulator.title')}</span>
         </h1>
         <p className="text-slate-400 text-sm md:text-base font-light max-w-xl">
-          Calculá tu cuota mensual estimada bajo el sistema de amortización francés, incluyendo gastos e impuestos vigentes en Paraguay.
+          {t('loanSimulator.desc')}
         </p>
       </div>
 
@@ -66,7 +68,7 @@ export default function LoanSimulatorPage({ onNavigate, onOpenModal }) {
               <div>
                 <div className="flex justify-between items-baseline mb-3">
                   <label htmlFor="loan-amount-slider" className="text-sm font-semibold text-slate-400">
-                    ¿Cuánto dinero necesitas?
+                    {t('loanSimulator.labelAmount')}
                   </label>
                   <span className="font-extrabold text-2xl lg:text-3xl text-brand-gold-light" aria-live="polite">
                     Gs. {loanAmount.toLocaleString('es-PY')}
@@ -90,7 +92,7 @@ export default function LoanSimulatorPage({ onNavigate, onOpenModal }) {
 
               <div>
                 <span id="loan-term-label" className="block text-sm font-semibold text-slate-400 mb-4">
-                  Plazo de pago preferido
+                  {t('loanSimulator.labelTerm')}
                 </span>
                 <div role="radiogroup" aria-labelledby="loan-term-label" className="grid grid-cols-5 gap-2">
                   {loanTerms.map((term) => {
@@ -117,7 +119,7 @@ export default function LoanSimulatorPage({ onNavigate, onOpenModal }) {
 
               <div className="inline-flex items-center gap-2 text-xs text-brand-gold-light/80 font-medium bg-brand-gold/5 border border-brand-gold/10 px-4 py-2.5 rounded-xl">
                 <ShieldCheck size={16} className="text-brand-gold shrink-0" />
-                <span>Tasa anual fija del 17.5% sujeta a aprobación crediticia.</span>
+                <span>{t('loanSimulator.rateNotice')}</span>
               </div>
             </div>
 
@@ -126,7 +128,7 @@ export default function LoanSimulatorPage({ onNavigate, onOpenModal }) {
               <div className="bg-brand-card/65 border border-white/5 rounded-3xl p-6 text-center text-white shadow-xl relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-24 h-24 bg-brand-gold/5 rounded-full blur-xl pointer-events-none" />
                 <span className="text-[10px] text-slate-400 font-extrabold uppercase tracking-[0.2em] block mb-1">
-                  Cuota mensual estimada
+                  {t('loanSimulator.estimatedPayment')}
                 </span>
                 <div className="text-3xl lg:text-4xl font-extrabold text-brand-gold-light" aria-live="polite">
                   Gs. {monthlyPayment.toLocaleString('es-PY')}
@@ -140,34 +142,34 @@ export default function LoanSimulatorPage({ onNavigate, onOpenModal }) {
                   onClick={() => setShowDetails(!showDetails)}
                   className="w-full flex items-center justify-between text-slate-400 font-bold hover:text-white transition-colors duration-100 cursor-pointer"
                 >
-                  <span>Ver desglose de la cuota estimada</span>
+                  <span>{t('loanSimulator.viewBreakdown')}</span>
                   {showDetails ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
                 </button>
                 
                 {showDetails && (
                   <div className="pt-2.5 border-t border-white/5 space-y-2 animate-fade-in">
                     <div className="flex justify-between">
-                      <span className="text-slate-400">Cuota Pura (Capital + Interés):</span>
+                      <span className="text-slate-400">{t('loanSimulator.breakdown.purePayment')}</span>
                       <span className="font-semibold text-slate-200">Gs. {purePayment.toLocaleString('es-PY')}</span>
                     </div>
                     <div className="flex justify-between pl-3 text-[11px] text-slate-500">
-                      <span>- Interés estimado 1ra cuota:</span>
+                      <span>{t('loanSimulator.breakdown.interest')}</span>
                       <span>Gs. {interest.toLocaleString('es-PY')}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-slate-400">IVA s/ Intereses (10%):</span>
+                      <span className="text-slate-400">{t('loanSimulator.breakdown.iva')}</span>
                       <span className="font-semibold text-slate-200">Gs. {iva.toLocaleString('es-PY')}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-slate-400">Seguro de Vida Deudor (0.08%):</span>
+                      <span className="text-slate-400">{t('loanSimulator.breakdown.insurance')}</span>
                       <span className="font-semibold text-slate-200">Gs. {insurance.toLocaleString('es-PY')}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-slate-400">Gastos Administrativos:</span>
+                      <span className="text-slate-400">{t('loanSimulator.breakdown.adminFee')}</span>
                       <span className="font-semibold text-slate-200">Gs. {adminFee.toLocaleString('es-PY')}</span>
                     </div>
                     <div className="flex justify-between border-t border-white/5 pt-2 font-bold text-brand-gold-light">
-                      <span>Total Cuota Mensual Estimada:</span>
+                      <span>{t('loanSimulator.breakdown.total')}</span>
                       <span>Gs. {monthlyPayment.toLocaleString('es-PY')}</span>
                     </div>
                   </div>
@@ -188,7 +190,7 @@ export default function LoanSimulatorPage({ onNavigate, onOpenModal }) {
                 })}
                 className="w-full bg-linear-to-r from-brand-gold to-brand-gold-light text-brand-dark py-4 rounded-2xl font-bold flex items-center justify-center gap-2 hover:brightness-105 active:scale-[0.99] transition-all duration-100 group text-base shadow-lg cursor-pointer"
               >
-                <span>Solicitar este crédito</span>
+                <span>{t('loanSimulator.cta')}</span>
                 <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform duration-100" />
               </button>
             </div>

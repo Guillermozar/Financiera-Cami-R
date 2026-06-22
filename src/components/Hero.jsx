@@ -9,6 +9,7 @@ import {
   Sparkles,
   BookOpen
 } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 /**
  * Hero component redesigned as a premium App-like Dashboard Launcher.
@@ -19,48 +20,50 @@ import {
  * @param {Function} props.onOpenModal - Callback to open lead capture modal.
  */
 export default function Hero({ onNavigate, onOpenModal }) {
+  const { t } = useLanguage();
+
   const launcherButtons = [
     {
-      title: "Simular Crédito",
-      description: "Calculá tu cuota mensual estimada y plazos en un par de clics.",
+      title: t('hero.btnLoanTitle'),
+      description: t('hero.btnLoanDesc'),
       icon: <Calculator className="text-brand-gold group-hover:scale-110 transition-transform duration-100" size={24} />,
-      badge: "Más Solicitado",
+      badge: t('hero.btnLoanBadge'),
       onClick: () => onNavigate('simular-credito')
     },
     {
-      title: "Simular Ahorro",
-      description: "Proyectá tus ganancias con nuestra tasa del 7.5% anual.",
+      title: t('hero.btnSavingsTitle'),
+      description: t('hero.btnSavingsDesc'),
       icon: <TrendingUp className="text-brand-gold group-hover:scale-110 transition-transform duration-100" size={24} />,
       onClick: () => onNavigate('simular-ahorro')
     },
     {
-      title: "Nuestros Productos",
-      description: "Explorá tarjetas de crédito digital premium y préstamos a medida.",
+      title: t('hero.btnProductsTitle'),
+      description: t('hero.btnProductsDesc'),
       icon: <Layers className="text-brand-gold group-hover:scale-110 transition-transform duration-100" size={24} />,
       onClick: () => onNavigate('productos')
     },
     {
-      title: "Solicitud de Crédito",
-      description: "Completá tus datos para una pre-aprobación en minutos.",
+      title: t('hero.btnApplyTitle'),
+      description: t('hero.btnApplyDesc'),
       icon: <Zap className="text-brand-gold group-hover:scale-110 transition-transform duration-100" size={24} />,
-      badge: "Express",
+      badge: t('hero.btnApplyBadge'),
       onClick: () => onOpenModal('loan')
     },
     {
-      title: "Consejos Financieros",
-      description: "Fundamentos clave de ahorro e inversión inteligente para multiplicar tu capital.",
+      title: t('hero.btnTipsTitle'),
+      description: t('hero.btnTipsDesc'),
       icon: <BookOpen className="text-brand-gold group-hover:scale-110 transition-transform duration-100" size={24} />,
       onClick: () => onNavigate('consejos')
     },
     {
-      title: "Portal de Seguridad",
-      description: "Conocé cómo protegemos tu cuenta con encriptación AES-256.",
+      title: t('hero.btnSecurityTitle'),
+      description: t('hero.btnSecurityDesc'),
       icon: <ShieldCheck className="text-brand-gold group-hover:scale-110 transition-transform duration-100" size={24} />,
       onClick: () => onNavigate('seguridad')
     },
     {
-      title: "Atención al Cliente",
-      description: "Portal de reclamos, preguntas frecuentes y asistencia oficial.",
+      title: t('hero.btnSupportTitle'),
+      description: t('hero.btnSupportDesc'),
       icon: <HelpCircle className="text-brand-gold group-hover:scale-110 transition-transform duration-100" size={24} />,
       onClick: () => onNavigate('soporte')
     }
@@ -76,13 +79,13 @@ export default function Hero({ onNavigate, onOpenModal }) {
         <div className="space-y-4 max-w-2xl mx-auto">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-gold/10 border border-brand-gold/20 text-brand-gold-light text-xs font-bold uppercase tracking-wider">
             <Sparkles size={12} className="text-brand-gold" />
-            <span>Orianza Digital Hub</span>
+            <span>{t('hero.hub')}</span>
           </div>
           <h1 className="text-4xl md:text-5xl font-serif font-normal text-white leading-tight">
-            ¿Qué deseas hacer hoy?
+            {t('hero.title')}
           </h1>
           <p className="text-slate-400 text-sm md:text-base font-light">
-            Bienvenido a tu portal financiero digital. Selecciona una de nuestras opciones rápidas para simular, solicitar o explorar servicios.
+            {t('hero.subtitle')}
           </p>
         </div>
 

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import Logo from './Logo';
+import { useLanguage } from '../context/LanguageContext';
 
 /**
  * Navbar component for navigation with responsive mobile menu.
@@ -12,6 +13,7 @@ import Logo from './Logo';
  */
 export default function Navbar({ currentView, onNavigate }) {
   const [isOpen, setIsOpen] = useState(false);
+  const { language, toggleLanguage, t } = useLanguage();
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -41,7 +43,7 @@ export default function Navbar({ currentView, onNavigate }) {
               currentView === 'productos' ? 'text-brand-gold-light' : ''
             }`}
           >
-            Productos
+            {t('navbar.products')}
           </button>
           
           <button 
@@ -52,7 +54,7 @@ export default function Navbar({ currentView, onNavigate }) {
                 : ''
             }`}
           >
-            Simuladores
+            {t('navbar.simulators')}
           </button>
           
           <button 
@@ -61,7 +63,7 @@ export default function Navbar({ currentView, onNavigate }) {
               currentView === 'seguridad' ? 'text-brand-gold-light' : ''
             }`}
           >
-            Seguridad
+            {t('navbar.security')}
           </button>
           
           <button 
@@ -70,15 +72,35 @@ export default function Navbar({ currentView, onNavigate }) {
               currentView === 'soporte' ? 'text-brand-gold-light' : ''
             }`}
           >
-            Soporte
+            {t('navbar.support')}
           </button>
+
+          {/* Language Switcher */}
+          <div className="flex items-center bg-white/5 border border-white/10 rounded-full p-0.5 shrink-0" role="group" aria-label="Idioma / Language">
+            <button
+              onClick={language === 'en' ? toggleLanguage : undefined}
+              className={`px-2.5 py-1 rounded-full text-[10px] font-extrabold transition-all duration-100 cursor-pointer ${
+                language === 'es' ? 'bg-brand-gold text-brand-dark' : 'text-slate-400 hover:text-white'
+              }`}
+            >
+              ES
+            </button>
+            <button
+              onClick={language === 'es' ? toggleLanguage : undefined}
+              className={`px-2.5 py-1 rounded-full text-[10px] font-extrabold transition-all duration-100 cursor-pointer ${
+                language === 'en' ? 'bg-brand-gold text-brand-dark' : 'text-slate-400 hover:text-white'
+              }`}
+            >
+              EN
+            </button>
+          </div>
 
           <button 
             onClick={() => handleNavClick('simular-credito')}
-            className="bg-linear-to-r from-brand-gold to-brand-gold-light text-brand-dark px-6 py-2.5 rounded-full hover:brightness-105 active:scale-95 transition-all shadow-lg shadow-brand-gold/10 hover:shadow-brand-gold/25 cursor-pointer font-bold"
+            className="bg-linear-to-r from-brand-gold to-brand-gold-light text-brand-dark px-6 py-2.5 rounded-full hover:brightness-105 active:scale-95 transition-all shadow-lg shadow-brand-gold/10 hover:shadow-brand-gold/25 cursor-pointer font-bold shrink-0"
             aria-label="Acceder al simulador de crédito"
           >
-            Simular Ahora
+            {t('navbar.simulateNow')}
           </button>
         </div>
 
@@ -108,7 +130,7 @@ export default function Navbar({ currentView, onNavigate }) {
               currentView === 'productos' ? 'text-brand-gold-light font-extrabold' : ''
             }`}
           >
-            Productos
+            {t('navbar.products')}
           </button>
           
           <button 
@@ -117,7 +139,7 @@ export default function Navbar({ currentView, onNavigate }) {
               currentView === 'simular-credito' || currentView === 'simular-ahorro' ? 'text-brand-gold-light font-extrabold' : ''
             }`}
           >
-            Simuladores
+            {t('navbar.simulators')}
           </button>
           
           <button 
@@ -126,7 +148,7 @@ export default function Navbar({ currentView, onNavigate }) {
               currentView === 'seguridad' ? 'text-brand-gold-light font-extrabold' : ''
             }`}
           >
-            Seguridad
+            {t('navbar.security')}
           </button>
           
           <button 
@@ -135,14 +157,37 @@ export default function Navbar({ currentView, onNavigate }) {
               currentView === 'soporte' ? 'text-brand-gold-light font-extrabold' : ''
             }`}
           >
-            Soporte
+            {t('navbar.support')}
           </button>
           
+          {/* Mobile Language Switcher */}
+          <div className="flex items-center justify-between py-2 border-b border-white/5">
+            <span className="text-sm font-semibold text-slate-400">Idioma / Language</span>
+            <div className="flex items-center bg-white/5 border border-white/10 rounded-full p-0.5" role="group">
+              <button
+                onClick={language === 'en' ? toggleLanguage : undefined}
+                className={`px-3 py-1 rounded-full text-xs font-extrabold transition-all duration-100 cursor-pointer ${
+                  language === 'es' ? 'bg-brand-gold text-brand-dark' : 'text-slate-400 hover:text-white'
+                }`}
+              >
+                ES
+              </button>
+              <button
+                onClick={language === 'es' ? toggleLanguage : undefined}
+                className={`px-3 py-1 rounded-full text-xs font-extrabold transition-all duration-100 cursor-pointer ${
+                  language === 'en' ? 'bg-brand-gold text-brand-dark' : 'text-slate-400 hover:text-white'
+                }`}
+              >
+                EN
+              </button>
+            </div>
+          </div>
+
           <button 
             onClick={() => handleNavClick('simular-credito')}
             className="w-full bg-linear-to-r from-brand-gold to-brand-gold-light text-brand-dark py-3 rounded-xl font-bold hover:brightness-105 active:scale-95 transition-all text-center shadow-lg shadow-brand-gold/10 cursor-pointer"
           >
-            Simular Ahora
+            {t('navbar.simulateNow')}
           </button>
         </div>
       </div>

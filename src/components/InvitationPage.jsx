@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Sparkles } from 'lucide-react';
 import Logo from './Logo';
+import { useLanguage } from '../context/LanguageContext';
 
 /**
  * InvitationPage component.
@@ -12,6 +13,7 @@ import Logo from './Logo';
  */
 export default function InvitationPage({ onEnter }) {
   const [isExiting, setIsExiting] = useState(false);
+  const { t } = useLanguage();
 
   const handleEnterClick = () => {
     setIsExiting(true);
@@ -59,15 +61,15 @@ export default function InvitationPage({ onEnter }) {
         {/* Sophisticated Literary Invitation Content */}
         <div className="space-y-6 max-w-md mx-auto mb-10 font-serif font-light text-slate-300">
           <p className="text-sm tracking-[0.2em] text-brand-gold uppercase font-bold">
-            Presentación Exclusiva
+            {t('invitation.badge')}
           </p>
           
           <h2 className="text-xl lg:text-2xl font-normal leading-relaxed text-white font-serif tracking-wide italic">
-            "Una invitación reservada a quienes valoran el tiempo, la solidez y la reserva."
+            "{t('invitation.heading')}"
           </h2>
           
           <p className="text-sm font-sans font-light leading-relaxed text-slate-400">
-            Descubra un estándar superior donde el capital se encuentra con la distinción y el impulso estratégico. Le damos la bienvenida a nuestra plataforma de servicios crediticios y de inversión de alta gama.
+            {t('invitation.paragraph')}
           </p>
         </div>
 
@@ -81,7 +83,7 @@ export default function InvitationPage({ onEnter }) {
             {/* Shimmer Light Beam Effect */}
             <span className="absolute inset-0 w-full h-full bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover/btn:animate-shimmer" style={{ animationDuration: '1.5s' }} />
             
-            <span>Acceder al Portal</span>
+            <span>{t('invitation.cta')}</span>
           </button>
         </div>
 
