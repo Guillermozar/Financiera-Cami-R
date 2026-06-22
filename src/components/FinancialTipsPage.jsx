@@ -70,7 +70,7 @@ export default function FinancialTipsPage({ onNavigate }) {
         {tips.map((t, idx) => (
           <div 
             key={idx}
-            className="bg-brand-card/40 border border-white/5 p-8 rounded-[2rem] hover:border-brand-gold/30 hover:bg-[#121E33]/30 transition-all duration-100 flex flex-col justify-between shadow-xl"
+            className="bg-brand-card/40 border border-white/5 p-8 rounded-4xl hover:border-brand-gold/30 hover:bg-[#121E33]/30 transition-all duration-100 flex flex-col justify-between shadow-xl"
           >
             <div className="space-y-5">
               <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center text-brand-gold">

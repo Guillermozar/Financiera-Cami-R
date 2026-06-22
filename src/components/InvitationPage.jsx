@@ -34,10 +34,10 @@ export default function InvitationPage({ onEnter }) {
       <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-brand-gold/3 rounded-full blur-[120px] animate-pulse pointer-events-none" style={{ animationDelay: '2s' }} />
       
       {/* Subtle Grid overlay for a cultured, structural touch */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.015)_1px,_transparent_1px),_linear-gradient(90deg,_rgba(255,255,255,0.015)_1px,_transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_at_center,_black_50%,_transparent_100%)] pointer-events-none" />
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-size-[40px_40px] mask-[radial-gradient(ellipse_at_center,black_50%,transparent_100%)] pointer-events-none" />
 
       {/* Main Glassmorphic Invitation Card Envelope */}
-      <div className="relative w-full max-w-xl mx-4 p-8 lg:p-14 rounded-[3rem] bg-brand-card/45 backdrop-blur-3xl border border-brand-gold/20 shadow-[0_30px_100px_rgba(0,0,0,0.8),_inset_0_1px_1px_rgba(255,255,255,0.05)] text-center animate-fade-in group hover:border-brand-gold/35 transition-colors duration-700">
+      <div className="relative w-full max-w-xl mx-4 p-8 lg:p-14 rounded-[3rem] bg-brand-card/45 backdrop-blur-3xl border border-brand-gold/20 shadow-[0_30px_100px_rgba(0,0,0,0.8),inset_0_1px_1px_rgba(255,255,255,0.05)] text-center animate-fade-in group hover:border-brand-gold/35 transition-colors duration-700">
         
         {/* Top Gold Corner Ornaments (Luxury Fine Details) */}
         <div className="absolute top-6 left-6 w-8 h-8 border-t border-l border-brand-gold/30 rounded-tl-xl pointer-events-none" />

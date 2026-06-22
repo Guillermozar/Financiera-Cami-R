@@ -140,7 +140,7 @@ export default function SecurityPage({ onNavigate }) {
               <div className={`w-5 h-5 rounded-md border flex items-center justify-center shrink-0 transition-colors duration-100 ${
                 checklist.otp ? 'bg-brand-gold border-transparent text-brand-dark' : 'border-white/20 group-hover:border-brand-gold/50'
               }`}>
-                {checklist.otp && <CheckCircle2 size={14} className="stroke-[3]" />}
+                {checklist.otp && <CheckCircle2 size={14} className="stroke-3" />}
               </div>
               <div className="text-xs">
                 <p className="font-bold text-slate-200">No comparto contraseñas ni OTP</p>
@@ -156,7 +156,7 @@ export default function SecurityPage({ onNavigate }) {
               <div className={`w-5 h-5 rounded-md border flex items-center justify-center shrink-0 transition-colors duration-100 ${
                 checklist.password ? 'bg-brand-gold border-transparent text-brand-dark' : 'border-white/20 group-hover:border-brand-gold/50'
               }`}>
-                {checklist.password && <CheckCircle2 size={14} className="stroke-[3]" />}
+                {checklist.password && <CheckCircle2 size={14} className="stroke-3" />}
               </div>
               <div className="text-xs">
                 <p className="font-bold text-slate-200">Contraseña Fuerte & Única</p>
@@ -172,7 +172,7 @@ export default function SecurityPage({ onNavigate }) {
               <div className={`w-5 h-5 rounded-md border flex items-center justify-center shrink-0 transition-colors duration-100 ${
                 checklist.url ? 'bg-brand-gold border-transparent text-brand-dark' : 'border-white/20 group-hover:border-brand-gold/50'
               }`}>
-                {checklist.url && <CheckCircle2 size={14} className="stroke-[3]" />}
+                {checklist.url && <CheckCircle2 size={14} className="stroke-3" />}
               </div>
               <div className="text-xs">
                 <p className="font-bold text-slate-200">Verifico URLs e Indicadores</p>
@@ -188,7 +188,7 @@ export default function SecurityPage({ onNavigate }) {
               <div className={`w-5 h-5 rounded-md border flex items-center justify-center shrink-0 transition-colors duration-100 ${
                 checklist.biometrics ? 'bg-brand-gold border-transparent text-brand-dark' : 'border-white/20 group-hover:border-brand-gold/50'
               }`}>
-                {checklist.biometrics && <CheckCircle2 size={14} className="stroke-[3]" />}
+                {checklist.biometrics && <CheckCircle2 size={14} className="stroke-3" />}
               </div>
               <div className="text-xs">
                 <p className="font-bold text-slate-200">Uso FaceID / TouchID</p>

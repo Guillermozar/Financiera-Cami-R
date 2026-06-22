@@ -121,7 +121,7 @@ export default function ProductsPage({ onNavigate }) {
         {filteredProducts.map((p) => (
           <div 
             key={p.id}
-            className={`group p-8 rounded-[2rem] border transition-all duration-100 flex flex-col justify-between relative shadow-xl ${
+            className={`group p-8 rounded-4xl border transition-all duration-100 flex flex-col justify-between relative shadow-xl ${
               p.featured 
                 ? 'bg-brand-card border-brand-gold shadow-brand-gold/5' 
                 : 'bg-brand-card/40 border-white/5 hover:border-brand-gold/40 hover:bg-[#121E33]/70'
