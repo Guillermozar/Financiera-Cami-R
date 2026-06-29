@@ -4,6 +4,10 @@ const LanguageContext = createContext();
 
 const translations = {
   es: {
+    preloader: {
+      motto1: "Impulsamos tu presente.",
+      motto2: "Construimos tu futuro."
+    },
     common: {
       backToHome: "Volver al Inicio",
       cancelAndBack: "Cancelar y Volver",
@@ -126,6 +130,10 @@ const translations = {
     }
   },
   en: {
+    preloader: {
+      motto1: "We boost your present.",
+      motto2: "We build your future."
+    },
     common: {
       backToHome: "Back to Home",
       cancelAndBack: "Cancel and Go Back",

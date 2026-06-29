@@ -13,12 +13,16 @@ import ContactoPage from './components/ContactoPage';
 // Language Context provider
 import { LanguageProvider } from './context/LanguageContext';
 
+// Preloader component
+import Preloader from './components/Preloader';
+
 /**
  * Main App component.
  * Manages view switching between 'home', 'quienes-somos', service pages, and 'contacto'.
  */
 function App() {
   const [view, setView] = useState('home'); // 'home' | 'quienes-somos' | 'creditos-personales' | 'creditos-microempresariales' | 'descuento-documentos' | 'contacto'
+  const [loading, setLoading] = useState(true);
   
   const handleNavigate = (targetView) => {
     setView(targetView);
@@ -28,7 +32,10 @@ function App() {
 
   return (
     <LanguageProvider>
-      <div className="min-h-screen bg-brand-bg-light text-brand-text-body font-sans antialiased">
+      {loading && <Preloader onComplete={() => setLoading(false)} />}
+      <div className={`min-h-screen bg-brand-bg-light text-brand-text-body font-sans antialiased transition-all duration-1000 ease-out ${
+        loading ? 'opacity-0 scale-[0.99] blur-xs' : 'opacity-100 scale-100 blur-none'
+      }`}>
         <div className="flex flex-col min-h-screen justify-between">
           <div>
             {/* Sticky Navigation Bar */}
