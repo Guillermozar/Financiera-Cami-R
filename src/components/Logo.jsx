@@ -24,7 +24,7 @@ export default function Logo({ className = '', showSubtitle = true, size = 'md',
       sm: 'h-12 w-auto',
       md: 'h-16 w-auto',
       lg: 'h-24 md:h-32 w-auto object-contain',
-      xl: 'h-32 md:h-48 lg:h-56 w-auto object-contain', // Mega grande para el preloader
+      xl: 'w-64 md:w-80 lg:w-96 h-auto object-contain', // Mega grande pero ajustando el ancho (ideal para logos con texto)
     }[size] || 'h-16 w-auto';
 
     return (

@@ -47,16 +47,16 @@ export default function Preloader({ onComplete }) {
         isFadingOut ? 'opacity-0 scale-105 pointer-events-none' : 'opacity-100 scale-100'
       }`}
     >
-      <div className="max-w-md px-6 text-center space-y-8 flex flex-col items-center">
+      <div className="max-w-md px-6 text-center space-y-4 flex flex-col items-center">
         {/* Brand Logo */}
-        <div className="h-32 md:h-48 lg:h-56 flex items-center justify-center animate-preloader-fade-in-up" style={{ animationDelay: '200ms' }}>
+        <div className="flex items-center justify-center animate-preloader-fade-in-up" style={{ animationDelay: '200ms' }}>
           <div className="animate-preloader-pulse">
             <Logo size="xl" lightTheme={false} showSubtitle={false} onlySymbol={true} />
           </div>
         </div>
 
         {/* Brand Motto */}
-        <div className="space-y-3 font-serif">
+        <div className="space-y-1 mt-2 font-serif">
           <h2 
             className="text-2xl md:text-3xl font-light tracking-wide text-white/90 animate-preloader-fade-in-up"
             style={{ animationDelay: '600ms' }}
@@ -73,7 +73,7 @@ export default function Preloader({ onComplete }) {
 
         {/* Loading Progress */}
         <div 
-          className="w-48 mt-12 space-y-2 animate-preloader-fade-in-up"
+          className="w-48 mt-8 space-y-2 animate-preloader-fade-in-up"
           style={{ animationDelay: '1500ms' }}
         >
           <div className="h-[2px] w-full bg-white/10 rounded-full overflow-hidden relative">
