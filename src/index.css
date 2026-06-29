@@ -1,16 +1,27 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Cinzel:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
 @import "tailwindcss";
 
 @theme {
   --font-sans: 'Inter', sans-serif;
-  --font-serif: 'Playfair Display', serif;
-  --font-brand: 'Cinzel', serif;
+  --font-serif: 'Lora', serif;
   
-  --color-brand-dark: #060B13;
-  --color-brand-card: #0E1624;
-  --color-brand-card-hover: #162237;
-  --color-brand-gold: #C5A880;
-  --color-brand-gold-light: #E6D3B8;
+  /* Backward compatibility mappings to prevent visual bugs */
+  --color-brand-dark: #FFFFFF;
+  --color-brand-card: #FFFFFF;
+  --color-brand-card-hover: #F8F9FA;
+  --color-brand-gold: #0B2545;
+  --color-brand-gold-light: #134074;
+  
+  /* New Semantic Design Tokens */
+  --color-brand-primary: #0B2545;
+  --color-brand-secondary: #134074;
+  --color-brand-accent: #8DA9C4;
+  --color-brand-bg-white: #FFFFFF;
+  --color-brand-bg-light: #F8F9FA;
+  --color-brand-text-heading: #0B2545;
+  --color-brand-text-body: #5A6A85;
+  --color-brand-border: #E2E8F0;
+  --color-brand-whatsapp: #25D366;
   
   --animate-fade-in: fadeIn 0.15s ease-out forwards;
   --animate-slide-up: slideUp 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -37,32 +48,44 @@
 
 @layer base {
   body {
-    @apply font-sans text-slate-200 bg-brand-dark antialiased selection:bg-brand-gold/20 selection:text-brand-gold-light;
+    font-family: var(--font-sans);
+    color: var(--color-brand-text-body);
+    background-color: var(--color-brand-bg-light);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  body::selection {
+    background-color: rgba(11, 37, 69, 0.1); /* Equivalent to brand-primary/10 */
+    color: var(--color-brand-primary);
   }
 
   /* Custom keyboard focus outline for accessibility */
   :focus-visible {
-    @apply outline-none ring-2 ring-brand-gold ring-offset-2 ring-offset-brand-dark;
+    outline: none;
+    box-shadow: 0 0 0 2px var(--color-brand-bg-white), 0 0 0 4px var(--color-brand-primary);
   }
 }
 
-/* Custom scrollbar to match the premium dark design */
+/* Custom scrollbar to match the light corporate design */
 ::-webkit-scrollbar {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  @apply bg-brand-dark;
+  background-color: var(--color-brand-bg-light);
 }
 ::-webkit-scrollbar-thumb {
-  @apply bg-slate-800 rounded-full hover:bg-slate-700 transition-colors;
+  background-color: #cbd5e1; /* slate-300 */
+  border-radius: 9999px;
+  transition: background-color 0.15s ease;
 }
-
-/* Custom styles for range slider for consistent cross-browser premium look */
-input[type="range"]::-webkit-slider-thumb {
-  @apply shadow-lg shadow-brand-gold/10 hover:scale-110 active:scale-95 transition-all duration-150;
+::-webkit-scrollbar-thumb:hover {
+  background-color: #94a3b8; /* slate-400 */
 }
 
 html {
   scroll-behavior: smooth;
 }
+
+

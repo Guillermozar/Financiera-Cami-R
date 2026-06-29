@@ -1,8 +1,8 @@
-// Custom triangle component for letter A declared outside to satisfy react-hooks/static-components
+// Custom triangle component for letter A
 const TriangleA = ({ size, strokeWidth }) => (
   <svg 
     viewBox="0 0 24 24" 
-    className={`${size} text-white inline-block relative top-[-2px]`} 
+    className={`${size} text-current inline-block relative top-[-2px]`} 
     fill="none" 
     xmlns="http://www.w3.org/2000/svg"
     aria-hidden="true"
@@ -24,15 +24,16 @@ const TriangleA = ({ size, strokeWidth }) => (
 );
 
 /**
- * Custom stylized Logo component for Orianza Crédito Financiero.
- * Incorporates a premium vector logo with customized triangle glyphs for the 'A's.
+ * Custom stylized Logo component for Orianza.
+ * Supports lightTheme for dark text on white backgrounds, or darkTheme (default) for white text on dark backgrounds.
  *
  * @param {object} props
  * @param {string} props.className - Additional class names.
  * @param {boolean} props.showSubtitle - Whether to show the "Crédito Financiero" tagline.
  * @param {string} props.size - Size profile: 'sm', 'md', or 'lg'.
+ * @param {boolean} props.lightTheme - If true, uses dark blue text. If false, uses white text.
  */
-export default function Logo({ className = '', showSubtitle = true, size = 'md' }) {
+export default function Logo({ className = '', showSubtitle = true, size = 'md', lightTheme = false }) {
   const isSm = size === 'sm';
   const isLg = size === 'lg';
 
@@ -61,10 +62,14 @@ export default function Logo({ className = '', showSubtitle = true, size = 'md' 
 
   const strokeWidth = isLg ? 2 : 2.5;
 
+  const textColorClass = lightTheme ? 'text-brand-primary' : 'text-white';
+  const subtitleColorClass = lightTheme ? 'text-brand-text-body/80' : 'text-slate-300';
+  const borderLineColorClass = lightTheme ? 'bg-brand-primary/20' : 'bg-white/20';
+
   return (
     <div className={`select-none font-sans ${containerClasses} ${className}`}>
       {/* Brand Name with Stylized "A"s */}
-      <div className={`flex items-center text-white uppercase font-bold leading-none ${brandTextSize}`}>
+      <div className={`flex items-center uppercase font-bold leading-none ${textColorClass} ${brandTextSize}`}>
         <span className="mr-[0.28em]">O</span>
         <span className="mr-[0.28em]">R</span>
         <span className="mr-[0.28em]">I</span>
@@ -76,10 +81,10 @@ export default function Logo({ className = '', showSubtitle = true, size = 'md' 
 
       {/* Subtitle / Tagline */}
       {showSubtitle && (
-        <div className={`flex items-center text-brand-gold uppercase font-bold ${subtitleTextSize}`}>
-          {isLg && <span className="w-12 h-px bg-brand-gold/40 mr-3"></span>}
+        <div className={`flex items-center uppercase font-bold ${subtitleColorClass} ${subtitleTextSize}`}>
+          {isLg && <span className={`w-12 h-px ${borderLineColorClass} mr-3`}></span>}
           <span>Crédito Financiero</span>
-          {isLg && <span className="w-12 h-px bg-brand-gold/40 ml-3"></span>}
+          {isLg && <span className={`w-12 h-px ${borderLineColorClass} ml-3`}></span>}
         </div>
       )}
     </div>

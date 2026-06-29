@@ -1,128 +1,245 @@
-import { 
-  Calculator, 
-  TrendingUp, 
-  Layers, 
-  ShieldCheck, 
-  HelpCircle, 
-  Zap, 
-  ChevronRight,
-  Sparkles,
-  BookOpen
-} from 'lucide-react';
+import { useState } from 'react';
+import { MessageSquare, ArrowRight, CheckCircle2, AlertCircle } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
-/**
- * Hero component redesigned as a premium App-like Dashboard Launcher.
- * Allows quick navigation to sections/views via stylized card buttons with ultra-fast transitions.
- * 
- * @param {object} props
- * @param {Function} props.onNavigate - Callback to navigate between views.
- * @param {Function} props.onOpenModal - Callback to open lead capture modal.
- */
-export default function Hero({ onNavigate, onOpenModal }) {
+export default function Hero({ onNavigate }) {
   const { t } = useLanguage();
+  const [formData, setFormData] = useState({ name: '', phone: '', product: '', consent: false });
+  const [errors, setErrors] = useState({});
+  const [isSuccess, setIsSuccess] = useState(false);
 
-  const launcherButtons = [
-    {
-      title: t('hero.btnLoanTitle'),
-      description: t('hero.btnLoanDesc'),
-      icon: <Calculator className="text-brand-gold group-hover:scale-110 transition-transform duration-100" size={24} />,
-      badge: t('hero.btnLoanBadge'),
-      onClick: () => onNavigate('simular-credito')
-    },
-    {
-      title: t('hero.btnSavingsTitle'),
-      description: t('hero.btnSavingsDesc'),
-      icon: <TrendingUp className="text-brand-gold group-hover:scale-110 transition-transform duration-100" size={24} />,
-      onClick: () => onNavigate('simular-ahorro')
-    },
-    {
-      title: t('hero.btnProductsTitle'),
-      description: t('hero.btnProductsDesc'),
-      icon: <Layers className="text-brand-gold group-hover:scale-110 transition-transform duration-100" size={24} />,
-      onClick: () => onNavigate('productos')
-    },
-    {
-      title: t('hero.btnApplyTitle'),
-      description: t('hero.btnApplyDesc'),
-      icon: <Zap className="text-brand-gold group-hover:scale-110 transition-transform duration-100" size={24} />,
-      badge: t('hero.btnApplyBadge'),
-      onClick: () => onOpenModal('loan')
-    },
-    {
-      title: t('hero.btnTipsTitle'),
-      description: t('hero.btnTipsDesc'),
-      icon: <BookOpen className="text-brand-gold group-hover:scale-110 transition-transform duration-100" size={24} />,
-      onClick: () => onNavigate('consejos')
-    },
-    {
-      title: t('hero.btnSecurityTitle'),
-      description: t('hero.btnSecurityDesc'),
-      icon: <ShieldCheck className="text-brand-gold group-hover:scale-110 transition-transform duration-100" size={24} />,
-      onClick: () => onNavigate('seguridad')
-    },
-    {
-      title: t('hero.btnSupportTitle'),
-      description: t('hero.btnSupportDesc'),
-      icon: <HelpCircle className="text-brand-gold group-hover:scale-110 transition-transform duration-100" size={24} />,
-      onClick: () => onNavigate('soporte')
+  const handleInputChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value
+    }));
+    if (errors[name]) {
+      setErrors(prev => ({ ...prev, [name]: '' }));
     }
-  ];
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+    if (!formData.name.trim()) {
+      newErrors.name = t('hero.errors.nameEmpty');
+    } else if (formData.name.trim().length < 5) {
+      newErrors.name = t('hero.errors.nameShort');
+    }
+
+    if (!formData.phone.trim()) {
+      newErrors.phone = t('hero.errors.phoneEmpty');
+    } else if (!/^\+?[0-9\s-]{9,15}$/.test(formData.phone.trim())) {
+      newErrors.phone = t('hero.errors.phoneInvalid');
+    }
+
+    if (!formData.product) {
+      newErrors.product = t('hero.errors.productEmpty');
+    }
+
+    if (!formData.consent) {
+      newErrors.consent = t('hero.errors.consentRequired');
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!validateForm()) return;
+
+    setIsSuccess(true);
+    
+    // Construct WhatsApp message
+    const productName = formData.product === 'personal' 
+      ? 'Crédito Personal' 
+      : formData.product === 'micro' 
+        ? 'Crédito Microempresarial' 
+        : 'Descuento de Documentos';
+        
+    const message = encodeURIComponent(
+      `Hola Orianza, mi nombre es ${formData.name}. Quisiera solicitar información y asesoría sobre: ${productName}. Mi número de contacto es ${formData.phone}.`
+    );
+
+    // Open WhatsApp in a new tab after a brief delay so the user sees the success state
+    setTimeout(() => {
+      window.open(`https://wa.me/595981123456?text=${message}`, '_blank');
+      // Reset form
+      setFormData({ name: '', phone: '', product: '', consent: false });
+      setIsSuccess(false);
+    }, 2000);
+  };
+
+  const handleWhatsAppClick = () => {
+    const message = encodeURIComponent("Hola Orianza, quisiera conversar con un asesor para solicitar un crédito.");
+    window.open(`https://wa.me/595981123456?text=${message}`, '_blank');
+  };
+
+  const scrollToForm = () => {
+    const formElement = document.getElementById('lead-capture-form');
+    if (formElement) {
+      formElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      formElement.querySelector('input')?.focus();
+    }
+  };
 
   return (
-    <header id="inicio" className="pt-36 pb-20 px-6 bg-linear-to-b from-brand-dark via-brand-card to-brand-dark relative overflow-hidden flex flex-col justify-center min-h-[90vh]">
+    <header className="pt-32 pb-16 px-6 bg-linear-to-b from-brand-bg-light to-white relative overflow-hidden flex flex-col justify-center min-h-[90vh]">
       {/* Decorative Glows */}
-      <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-brand-gold/5 rounded-full blur-[100px] pointer-events-none" aria-hidden="true" />
+      <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-brand-primary/5 rounded-full blur-[100px] pointer-events-none" aria-hidden="true" />
       
-      <div className="max-w-6xl mx-auto w-full relative z-10 text-center space-y-12 animate-fade-in">
-        {/* Welcome Header */}
-        <div className="space-y-4 max-w-2xl mx-auto">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-gold/10 border border-brand-gold/20 text-brand-gold-light text-xs font-bold uppercase tracking-wider">
-            <Sparkles size={12} className="text-brand-gold" />
-            <span>{t('hero.hub')}</span>
-          </div>
-          <h1 className="text-4xl md:text-5xl font-serif font-normal text-white leading-tight">
+      <div className="max-w-6xl mx-auto w-full relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        {/* Left Column: Headline and sub-text */}
+        <div className="lg:col-span-7 space-y-6 text-left">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-brand-text-heading leading-tight font-normal">
             {t('hero.title')}
           </h1>
-          <p className="text-slate-400 text-sm md:text-base font-light">
+          <p className="text-brand-text-body text-base md:text-lg font-light leading-relaxed max-w-2xl">
             {t('hero.subtitle')}
           </p>
+          
+          <div className="flex flex-wrap gap-4 pt-4">
+            <button 
+              onClick={scrollToForm}
+              className="bg-brand-primary hover:brightness-105 text-white px-8 py-4 rounded-xl font-bold text-sm transition-all shadow-md shadow-brand-primary/10 active:scale-95 cursor-pointer flex items-center gap-2"
+            >
+              <span>Solicitar mi Crédito Ahora</span>
+              <ArrowRight size={16} />
+            </button>
+            <button 
+              onClick={handleWhatsAppClick}
+              className="bg-brand-whatsapp/10 text-brand-whatsapp hover:bg-brand-whatsapp/20 px-8 py-4 rounded-xl font-bold text-sm transition-all active:scale-95 cursor-pointer flex items-center gap-2"
+            >
+              <MessageSquare size={16} />
+              <span>Hablemos por WhatsApp</span>
+            </button>
+          </div>
         </div>
 
-        {/* Dashboard Grid Launcher */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 max-w-5xl mx-auto">
-          {launcherButtons.map((btn, idx) => (
-            <button
-              key={idx}
-              onClick={btn.onClick}
-              className="group text-left p-6 rounded-3xl bg-brand-card/30 hover:bg-brand-card/85 border border-white/5 hover:border-brand-gold/30 hover:shadow-2xl hover:shadow-brand-gold/5 transition-all duration-100 active:scale-[0.98] cursor-pointer flex flex-col justify-between h-[170px] relative overflow-hidden focus-visible:ring-2 focus-visible:ring-brand-gold focus-visible:ring-offset-2"
-            >
-              {/* Corner accent line */}
-              <div className="absolute top-0 right-0 w-12 h-12 bg-linear-to-br from-brand-gold/10 to-transparent rounded-tr-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-100" />
-              
-              <div className="flex justify-between items-start w-full">
-                <div className="p-3 bg-white/5 group-hover:bg-brand-gold/10 rounded-2xl transition-colors duration-100">
-                  {btn.icon}
-                </div>
-                {btn.badge && (
-                  <span className="text-[9px] font-extrabold tracking-wider uppercase px-2.5 py-1 rounded-full bg-brand-gold/15 text-brand-gold-light border border-brand-gold/20 animate-pulse">
-                    {btn.badge}
-                  </span>
-                )}
-              </div>
-              
-              <div className="space-y-1 mt-4">
-                <h3 className="font-bold text-white text-base flex items-center gap-1 group-hover:text-brand-gold-light transition-colors duration-100">
-                  <span>{btn.title}</span>
-                  <ChevronRight size={14} className="opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all duration-100" />
-                </h3>
-                <p className="text-xs text-slate-400 font-light leading-relaxed line-clamp-2">
-                  {btn.description}
+        {/* Right Column: Lead Capture Form */}
+        <div className="lg:col-span-5 w-full">
+          <div 
+            id="lead-capture-form"
+            className="bg-white border border-brand-border rounded-3xl p-8 shadow-xl relative overflow-hidden transition-all duration-300"
+          >
+            {isSuccess ? (
+              <div className="text-center py-12 space-y-4 animate-scale-in">
+                <CheckCircle2 size={56} className="text-emerald-500 mx-auto" />
+                <h3 className="font-serif font-bold text-brand-text-heading text-xl">{t('common.success')}</h3>
+                <p className="text-brand-text-body text-sm font-light leading-relaxed">
+                  {t('hero.successMessage')}
                 </p>
               </div>
-            </button>
-          ))}
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-4 text-left">
+                <div>
+                  <h3 className="font-serif font-bold text-brand-text-heading text-lg">
+                    {t('hero.formTitle')}
+                  </h3>
+                  <p className="text-xs text-brand-text-body mt-1">
+                    {t('hero.formSubtitle')}
+                  </p>
+                </div>
+
+                {/* Name Field */}
+                <div>
+                  <label htmlFor="lead-name" className="block text-xs font-bold text-brand-text-heading mb-1">{t('hero.fieldName')}</label>
+                  <input
+                    id="lead-name"
+                    name="name"
+                    type="text"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    className="w-full p-3 bg-brand-bg-light border border-brand-border rounded-xl text-brand-text-heading focus:outline-none focus:border-brand-primary text-xs"
+                    placeholder="Juan Pérez"
+                  />
+                  {errors.name && (
+                    <p className="text-[10px] text-red-500 mt-1 font-semibold flex items-center gap-1">
+                      <AlertCircle size={10} />
+                      <span>{errors.name}</span>
+                    </p>
+                  )}
+                </div>
+
+                {/* Phone Field */}
+                <div>
+                  <label htmlFor="lead-phone" className="block text-xs font-bold text-brand-text-heading mb-1">{t('hero.fieldPhone')}</label>
+                  <input
+                    id="lead-phone"
+                    name="phone"
+                    type="tel"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    className="w-full p-3 bg-brand-bg-light border border-brand-border rounded-xl text-brand-text-heading focus:outline-none focus:border-brand-primary text-xs"
+                    placeholder="0981 123 456"
+                  />
+                  {errors.phone && (
+                    <p className="text-[10px] text-red-500 mt-1 font-semibold flex items-center gap-1">
+                      <AlertCircle size={10} />
+                      <span>{errors.phone}</span>
+                    </p>
+                  )}
+                </div>
+
+                {/* Type of Credit Dropdown */}
+                <div>
+                  <label htmlFor="lead-product" className="block text-xs font-bold text-brand-text-heading mb-1">{t('hero.fieldProduct')}</label>
+                  <select
+                    id="lead-product"
+                    name="product"
+                    value={formData.product}
+                    onChange={handleInputChange}
+                    className="w-full p-3 bg-brand-bg-light border border-brand-border rounded-xl text-brand-text-heading focus:outline-none focus:border-brand-primary text-xs cursor-pointer"
+                  >
+                    <option value="">{t('hero.selectPrompt')}</option>
+                    <option value="personal">{t('navbar.personal')}</option>
+                    <option value="micro">{t('navbar.micro')}</option>
+                    <option value="documents">{t('navbar.documents')}</option>
+                  </select>
+                  {errors.product && (
+                    <p className="text-[10px] text-red-500 mt-1 font-semibold flex items-center gap-1">
+                      <AlertCircle size={10} />
+                      <span>{errors.product}</span>
+                    </p>
+                  )}
+                </div>
+
+                {/* Consent Checkbox */}
+                <div className="space-y-1">
+                  <label className="flex items-start gap-2 cursor-pointer select-none">
+                    <input
+                      type="checkbox"
+                      name="consent"
+                      checked={formData.consent}
+                      onChange={handleInputChange}
+                      className="mt-0.5 rounded border-brand-border text-brand-primary focus:ring-brand-primary cursor-pointer"
+                    />
+                    <span className="text-[10px] text-brand-text-body leading-normal">
+                      {t('hero.consent')}
+                    </span>
+                  </label>
+                  {errors.consent && (
+                    <p className="text-[10px] text-red-500 mt-1 font-semibold flex items-center gap-1">
+                      <AlertCircle size={10} />
+                      <span>{errors.consent}</span>
+                    </p>
+                  )}
+                </div>
+
+                {/* Submit Button */}
+                <button
+                  type="submit"
+                  className="w-full bg-brand-primary hover:brightness-105 text-white py-3 rounded-xl font-bold text-xs uppercase tracking-wider transition-all active:scale-[0.98] cursor-pointer text-center"
+                >
+                  {t('common.submit')}
+                </button>
+              </form>
+            )}
+          </div>
         </div>
+
       </div>
     </header>
   );
