@@ -1,92 +1,37 @@
-// Custom triangle component for letter A
-const TriangleA = ({ size, strokeWidth }) => (
-  <svg 
-    viewBox="0 0 24 24" 
-    className={`${size} text-current inline-block relative top-[-2px]`} 
-    fill="none" 
-    xmlns="http://www.w3.org/2000/svg"
-    aria-hidden="true"
-  >
-    {/* Outer Triangle Outline */}
-    <polygon 
-      points="12,3 23,21 1,21" 
-      stroke="currentColor" 
-      strokeWidth={strokeWidth} 
-      fill="none" 
-      strokeLinejoin="round" 
-    />
-    {/* Inner Filled Triangle */}
-    <polygon 
-      points="12,11 17.5,20 6.5,20" 
-      fill="currentColor" 
-    />
-  </svg>
-);
+import logoUrl from '../assets/logo.svg';
 
 /**
- * Custom stylized Logo component for Orianza.
- * Supports lightTheme for dark text on white backgrounds, or darkTheme (default) for white text on dark backgrounds.
- *
+ * Logo component for Orianza.
+ * Renders the new SVG logo from assets.
+ * Supports size profiles ('sm', 'md', 'lg') and light/dark theme styling.
+ * 
  * @param {object} props
  * @param {string} props.className - Additional class names.
- * @param {boolean} props.showSubtitle - Whether to show the "Crédito Financiero" tagline.
+ * @param {boolean} props.showSubtitle - Ignored since the new logo includes brand branding, kept for prop compatibility.
  * @param {string} props.size - Size profile: 'sm', 'md', or 'lg'.
- * @param {boolean} props.lightTheme - If true, uses dark blue text. If false, uses white text.
+ * @param {boolean} props.lightTheme - If true, displays the logo as-is (for light backgrounds). If false, applies a CSS filter to make it white (for dark backgrounds).
  */
 export default function Logo({ className = '', showSubtitle = true, size = 'md', lightTheme = false }) {
-  const isSm = size === 'sm';
-  const isLg = size === 'lg';
+  // Sizing mapping for the image height (increased to make the vertical logo larger and more readable)
+  const heightClass = {
+    sm: 'h-14 md:h-16 w-auto object-contain', // Fills the Navbar (h-20) nicely for better readability
+    md: 'h-24 md:h-28 w-auto object-contain', // Larger for the Footer
+    lg: 'h-36 md:h-44 w-auto object-contain',
+  }[size] || 'h-24 w-auto object-contain';
 
-  // Sizing definitions
-  const containerClasses = isLg 
-    ? 'flex flex-col items-center text-center' 
-    : 'flex flex-col items-start';
-
-  const brandTextSize = isSm 
-    ? 'text-lg tracking-[0.25em]' 
-    : isLg 
-      ? 'text-3xl lg:text-4xl tracking-[0.3em] font-light' 
-      : 'text-xl lg:text-2xl tracking-[0.28em] font-semibold';
-
-  const svgSize = isSm 
-    ? 'w-4 h-4 mr-[0.25em]' 
-    : isLg 
-      ? 'w-8 h-8 mr-[0.3em]' 
-      : 'w-5.5 h-5.5 mr-[0.28em]';
-
-  const subtitleTextSize = isSm 
-    ? 'text-[8px] tracking-[0.15em]' 
-    : isLg 
-      ? 'text-xs lg:text-sm tracking-[0.25em] mt-3' 
-      : 'text-[9px] tracking-[0.2em] mt-1.5';
-
-  const strokeWidth = isLg ? 2 : 2.5;
-
-  const textColorClass = lightTheme ? 'text-brand-primary' : 'text-white';
-  const subtitleColorClass = lightTheme ? 'text-brand-text-body/80' : 'text-slate-300';
-  const borderLineColorClass = lightTheme ? 'bg-brand-primary/20' : 'bg-white/20';
+  // If the logo is on a dark background (lightTheme === false), 
+  // we apply a CSS filter to turn the dark parts of the SVG white so it remains highly visible.
+  const themeFilterClass = lightTheme ? '' : 'brightness-0 invert';
 
   return (
-    <div className={`select-none font-sans ${containerClasses} ${className}`}>
-      {/* Brand Name with Stylized "A"s */}
-      <div className={`flex items-center uppercase font-bold leading-none ${textColorClass} ${brandTextSize}`}>
-        <span className="mr-[0.28em]">O</span>
-        <span className="mr-[0.28em]">R</span>
-        <span className="mr-[0.28em]">I</span>
-        <TriangleA size={svgSize} strokeWidth={strokeWidth} />
-        <span className="mr-[0.28em]">N</span>
-        <span className="mr-[0.28em]">Z</span>
-        <TriangleA size={svgSize} strokeWidth={strokeWidth} />
-      </div>
-
-      {/* Subtitle / Tagline */}
-      {showSubtitle && (
-        <div className={`flex items-center uppercase font-bold ${subtitleColorClass} ${subtitleTextSize}`}>
-          {isLg && <span className={`w-12 h-px ${borderLineColorClass} mr-3`}></span>}
-          <span>Crédito Financiero</span>
-          {isLg && <span className={`w-12 h-px ${borderLineColorClass} ml-3`}></span>}
-        </div>
-      )}
+    <div className={`flex items-center ${className}`}>
+      <img 
+        src={`${logoUrl}?v=3`} 
+        alt="Orianza Logo" 
+        className={`${heightClass} ${themeFilterClass} transition-all duration-200`}
+        style={{ display: 'block' }}
+      />
     </div>
   );
 }
+
