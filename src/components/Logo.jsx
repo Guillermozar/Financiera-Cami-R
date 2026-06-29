@@ -16,7 +16,7 @@ export default function Logo({ className = '', showSubtitle = true, size = 'md',
   const heightClass = {
     sm: 'h-14 md:h-16 w-auto object-contain', // Fills the Navbar (h-20) nicely for better readability
     md: 'h-24 md:h-28 w-auto object-contain', // Larger for the Footer
-    lg: 'h-36 md:h-44 w-auto object-contain',
+    lg: 'h-52 md:h-64 w-auto object-contain',
   }[size] || 'h-24 w-auto object-contain';
 
   // If the logo is on a dark background (lightTheme === false), 
