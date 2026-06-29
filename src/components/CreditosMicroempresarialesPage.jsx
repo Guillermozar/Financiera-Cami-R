@@ -1,13 +1,14 @@
 import { CheckCircle, ArrowLeft, MessageSquare } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import { getWhatsAppLink } from '../config';
 
 export default function CreditosMicroempresarialesPage({ onNavigate }) {
   const { t } = useLanguage();
   const benefits = t('creditosMicro.benefits') || [];
 
   const handleWhatsAppClick = () => {
-    const message = encodeURIComponent("Hola Orianza, quisiera recibir información y solicitar asesoría sobre los Créditos Microempresariales para mi negocio.");
-    window.open(`https://wa.me/595981123456?text=${message}`, '_blank');
+    const message = "Hola Orianza, quisiera recibir información y solicitar asesoría sobre los Créditos Microempresariales para mi negocio.";
+    window.open(getWhatsAppLink(message), '_blank');
   };
 
   return (

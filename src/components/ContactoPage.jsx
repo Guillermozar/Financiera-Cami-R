@@ -1,6 +1,7 @@
 import { Mail, Phone, MessageSquare, Clock, ArrowLeft, CheckCircle2, AlertCircle } from 'lucide-react';
 import { useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
+import { CONTACT_CONFIG, getWhatsAppLink } from '../config';
 
 export default function ContactoPage({ onNavigate }) {
   const { language, t } = useLanguage();
@@ -43,8 +44,8 @@ export default function ContactoPage({ onNavigate }) {
   };
 
   const handleWhatsAppClick = () => {
-    const message = encodeURIComponent("Hola Orianza, quisiera comunicarme con un asesor de servicio al cliente.");
-    window.open(`https://wa.me/595981123456?text=${message}`, '_blank');
+    const message = "Hola Orianza, quisiera comunicarme con un asesor de servicio al cliente.";
+    window.open(getWhatsAppLink(message), '_blank');
   };
 
   return (
@@ -86,31 +87,31 @@ export default function ContactoPage({ onNavigate }) {
                 <MessageSquare size={20} className="shrink-0" />
                 <div className="flex flex-col">
                   <span className="text-xs font-semibold opacity-75">WhatsApp Oficial</span>
-                  <span className="text-sm">+595 981 123456</span>
+                  <span className="text-sm">{CONTACT_CONFIG.whatsappDisplay || '—'}</span>
                 </div>
               </button>
 
               {/* Phone Row */}
               <a 
-                href="tel:+595211234567" 
+                href={CONTACT_CONFIG.telefonoFijo ? `tel:${CONTACT_CONFIG.telefonoFijo.replace(/[^0-9+]/g, '')}` : "#"} 
                 className="flex items-center gap-3.5 p-3.5 bg-brand-primary/5 text-brand-primary hover:bg-brand-primary/10 rounded-2xl transition-all duration-100 font-bold"
               >
                 <Phone size={20} className="shrink-0" />
                 <div className="flex flex-col">
                   <span className="text-xs font-semibold opacity-75">Teléfono Fijo</span>
-                  <span className="text-sm">+595 21 123 4567</span>
+                  <span className="text-sm">{CONTACT_CONFIG.telefonoFijo || '—'}</span>
                 </div>
               </a>
 
               {/* Email Row */}
               <a 
-                href="mailto:contacto@orianza.com.py" 
+                href={CONTACT_CONFIG.email ? `mailto:${CONTACT_CONFIG.email}` : "#"} 
                 className="flex items-center gap-3.5 p-3.5 border border-brand-border hover:bg-brand-bg-light rounded-2xl transition-all duration-100 font-bold"
               >
                 <Mail size={20} className="shrink-0 text-brand-primary" />
                 <div className="flex flex-col text-brand-text-heading">
                   <span className="text-xs font-semibold opacity-75">Correo Electrónico</span>
-                  <span className="text-sm">contacto@orianza.com.py</span>
+                  <span className="text-sm">{CONTACT_CONFIG.email || '—'}</span>
                 </div>
               </a>
 

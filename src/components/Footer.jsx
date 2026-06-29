@@ -1,6 +1,7 @@
 import { Mail, Phone, MessageSquare, ShieldCheck, FileText, Lock } from 'lucide-react';
 import Logo from './Logo';
 import { useLanguage } from '../context/LanguageContext';
+import { CONTACT_CONFIG, getWhatsAppLink } from '../config';
 
 // Vector SVG of the Banco Central del Paraguay (BCP) Logo (light/contrast version for the dark footer)
 const BcpLogoSvgLight = ({ className = 'w-16 h-16' }) => (
@@ -45,8 +46,8 @@ export default function Footer() {
   const { t } = useLanguage();
 
   const handleWhatsAppClick = () => {
-    const message = encodeURIComponent("Hola Orianza, quisiera realizar una consulta.");
-    window.open(`https://wa.me/595981123456?text=${message}`, '_blank');
+    const message = "Hola Orianza, quisiera realizar una consulta.";
+    window.open(getWhatsAppLink(message), '_blank');
   };
 
   return (
@@ -71,21 +72,21 @@ export default function Footer() {
             <h4 className="font-bold text-xs uppercase tracking-widest text-brand-accent">
               {t('footer.legalId')}
             </h4>
-            <address className="text-xs text-slate-300 space-y-2 leading-relaxed not-italic font-light">
+            <address className="text-xs text-slate-300 space-y-2 leading-relaxed not-italic font-light font-sans">
               <div>
-                <strong className="text-white">Razón Social:</strong> Orianza S.A.
+                <strong className="text-white">Razón Social:</strong> {CONTACT_CONFIG.razonSocial || '—'}
               </div>
               <div>
-                <strong className="text-white">RUC:</strong> 80012345-6
+                <strong className="text-white">RUC:</strong> {CONTACT_CONFIG.ruc || '—'}
               </div>
               <div>
-                <strong className="text-white">Dirección:</strong> Avda. Aviadores del Chaco 2050, Asunción, Paraguay
+                <strong className="text-white">Dirección:</strong> {CONTACT_CONFIG.direccion || '—'}
               </div>
               <div>
-                <strong className="text-white">Email:</strong> contacto@orianza.com.py
+                <strong className="text-white">Email:</strong> {CONTACT_CONFIG.email || '—'}
               </div>
               <div>
-                <strong className="text-white">Teléfono:</strong> +595 21 123 4567
+                <strong className="text-white">Teléfono:</strong> {CONTACT_CONFIG.telefonoFijo || '—'}
               </div>
             </address>
           </div>
@@ -96,14 +97,18 @@ export default function Footer() {
               Contacto y Horarios
             </h4>
             <ul className="text-xs text-slate-300 space-y-2.5 font-light">
-              <li className="flex items-center gap-2">
-                <Phone size={14} className="text-brand-accent" />
-                <span>+595 21 123 4567</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <Mail size={14} className="text-brand-accent" />
-                <span>contacto@orianza.com.py</span>
-              </li>
+              {CONTACT_CONFIG.telefonoFijo && (
+                <li className="flex items-center gap-2">
+                  <Phone size={14} className="text-brand-accent" />
+                  <span>{CONTACT_CONFIG.telefonoFijo}</span>
+                </li>
+              )}
+              {CONTACT_CONFIG.email && (
+                <li className="flex items-center gap-2">
+                  <Mail size={14} className="text-brand-accent" />
+                  <span>{CONTACT_CONFIG.email}</span>
+                </li>
+              )}
               <li className="pt-1">
                 <button
                   onClick={handleWhatsAppClick}

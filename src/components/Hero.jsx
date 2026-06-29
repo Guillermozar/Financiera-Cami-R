@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { MessageSquare, ArrowRight, CheckCircle2, AlertCircle } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import { getWhatsAppLink } from '../config';
 
 export default function Hero({ onNavigate }) {
   const { t } = useLanguage();
@@ -58,13 +59,11 @@ export default function Hero({ onNavigate }) {
         ? 'Crédito Microempresarial' 
         : 'Descuento de Documentos';
         
-    const message = encodeURIComponent(
-      `Hola Orianza, mi nombre es ${formData.name}. Quisiera solicitar información y asesoría sobre: ${productName}. Mi número de contacto es ${formData.phone}.`
-    );
+    const message = `Hola Orianza, mi nombre es ${formData.name}. Quisiera solicitar información y asesoría sobre: ${productName}. Mi número de contacto es ${formData.phone}.`;
 
     // Open WhatsApp in a new tab after a brief delay so the user sees the success state
     setTimeout(() => {
-      window.open(`https://wa.me/595981123456?text=${message}`, '_blank');
+      window.open(getWhatsAppLink(message), '_blank');
       // Reset form
       setFormData({ name: '', phone: '', product: '', consent: false });
       setIsSuccess(false);
@@ -72,8 +71,8 @@ export default function Hero({ onNavigate }) {
   };
 
   const handleWhatsAppClick = () => {
-    const message = encodeURIComponent("Hola Orianza, quisiera conversar con un asesor para solicitar un crédito.");
-    window.open(`https://wa.me/595981123456?text=${message}`, '_blank');
+    const message = "Hola Orianza, quisiera conversar con un asesor para solicitar un crédito.";
+    window.open(getWhatsAppLink(message), '_blank');
   };
 
   const scrollToForm = () => {

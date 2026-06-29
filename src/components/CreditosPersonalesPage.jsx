@@ -1,13 +1,14 @@
 import { CheckCircle, ArrowLeft, MessageSquare } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import { getWhatsAppLink } from '../config';
 
 export default function CreditosPersonalesPage({ onNavigate }) {
   const { t } = useLanguage();
   const benefits = t('creditosPersonales.benefits') || [];
 
   const handleWhatsAppClick = () => {
-    const message = encodeURIComponent("Hola Orianza, quisiera recibir información y solicitar asesoría sobre los Créditos Personales.");
-    window.open(`https://wa.me/595981123456?text=${message}`, '_blank');
+    const message = "Hola Orianza, quisiera recibir información y solicitar asesoría sobre los Créditos Personales.";
+    window.open(getWhatsAppLink(message), '_blank');
   };
 
   return (

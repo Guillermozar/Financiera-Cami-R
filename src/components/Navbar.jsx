@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { Menu, X, ChevronDown, MessageSquare } from 'lucide-react';
 import Logo from './Logo';
 import { useLanguage } from '../context/LanguageContext';
+import { getWhatsAppLink } from '../config';
 
 export default function Navbar({ currentView, onNavigate }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,8 +32,8 @@ export default function Navbar({ currentView, onNavigate }) {
   }, []);
 
   const handleWhatsAppClick = () => {
-    const message = encodeURIComponent("Hola Orianza, quisiera hablar con un asesor.");
-    window.open(`https://wa.me/595981123456?text=${message}`, '_blank');
+    const message = language === 'es' ? "Hola Orianza, quisiera hablar con un asesor." : "Hello Orianza, I would like to speak with an advisor.";
+    window.open(getWhatsAppLink(message), '_blank');
   };
 
   return (
