@@ -38,7 +38,7 @@ export default function Navbar({ currentView, onNavigate }) {
 
   return (
     <nav className="fixed top-0 left-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-brand-border transition-all duration-100">
-      <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-6 h-24 lg:h-28 flex items-center justify-between">
         
         {/* Brand/Logo (Click to go home) */}
         <button 
@@ -46,7 +46,7 @@ export default function Navbar({ currentView, onNavigate }) {
           className="flex items-center gap-2 group cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary/60 rounded-lg p-1" 
           aria-label="Orianza Inicio"
         >
-          <Logo size="sm" showSubtitle={true} lightTheme={true} className="transition-transform group-hover:scale-[1.02]" />
+          <Logo size="md" showSubtitle={true} lightTheme={true} className="transition-transform group-hover:scale-[1.02]" />
         </button>
 
         {/* Desktop Menu */}
@@ -164,7 +164,7 @@ export default function Navbar({ currentView, onNavigate }) {
       {/* Mobile Drawer */}
       <div 
         id="mobile-menu"
-        className={`lg:hidden absolute top-20 left-0 w-full bg-white border-b border-brand-border shadow-2xl transition-all duration-150 ease-out origin-top ${
+        className={`lg:hidden absolute top-24 left-0 w-full bg-white border-b border-brand-border shadow-2xl transition-all duration-150 ease-out origin-top ${
           isOpen ? 'opacity-100 scale-y-100' : 'opacity-0 scale-y-0 pointer-events-none'
         }`}
       >
