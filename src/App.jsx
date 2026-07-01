@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Navbar from './components/Navbar';
-import Hero from './components/Hero';
+import Home from './components/Home';
 import Footer from './components/Footer';
 
 // New human-centric corporate page components
@@ -44,8 +44,8 @@ function App() {
             {/* Dynamic View Rendering */}
             {view === 'home' && (
               <div className="animate-fade-in">
-                {/* Hero with integrated lead capture form */}
-                <Hero onNavigate={handleNavigate} />
+                {/* Home orchestrator component */}
+                <Home onNavigate={handleNavigate} />
               </div>
             )}
 

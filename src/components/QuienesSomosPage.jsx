@@ -57,36 +57,36 @@ export default function QuienesSomosPage({ onNavigate }) {
       </div>
 
       {/* Main Philosophy & Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start mb-20">
         <div className="space-y-6">
           <h2 className="text-2xl md:text-3xl font-serif text-brand-text-heading">
             {t('quienesSomos.historyTitle')}
           </h2>
           <p className="text-brand-text-body text-base leading-relaxed font-light">
-            {t('quienesSomos.historyText1')}
-          </p>
-          <p className="text-brand-text-body text-base leading-relaxed font-light">
-            {t('quienesSomos.historyText2')}
+            {t('quienesSomos.historyText')}
           </p>
           
-          {/* Micro-features showing human focus */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
-            <div className="flex gap-3 items-start">
-              <div className="p-2.5 bg-brand-primary/5 rounded-xl text-brand-primary">
-                <Heart size={20} />
+          {/* Brand Values Grid */}
+          <div className="pt-4">
+            <h3 className="font-serif text-lg font-bold text-brand-text-heading mb-4">
+              {t('valores.title')}
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-1">
+                <h4 className="font-bold text-brand-primary text-sm font-serif">{t('valores.confianzaTitle')}</h4>
+                <p className="text-xs text-brand-text-body font-light leading-relaxed">{t('valores.confianzaDesc')}</p>
               </div>
-              <div>
-                <h4 className="font-bold text-brand-text-heading text-sm">Trato Humano</h4>
-                <p className="text-xs text-brand-text-body font-light leading-relaxed">Analizamos tu caso de forma personal, no a través de un algoritmo frío.</p>
+              <div className="space-y-1">
+                <h4 className="font-bold text-brand-primary text-sm font-serif">{t('valores.agilidadTitle')}</h4>
+                <p className="text-xs text-brand-text-body font-light leading-relaxed">{t('valores.agilidadDesc')}</p>
               </div>
-            </div>
-            <div className="flex gap-3 items-start">
-              <div className="p-2.5 bg-brand-primary/5 rounded-xl text-brand-primary">
-                <Award size={20} />
+              <div className="space-y-1">
+                <h4 className="font-bold text-brand-primary text-sm font-serif">{t('valores.transparenciaTitle')}</h4>
+                <p className="text-xs text-brand-text-body font-light leading-relaxed">{t('valores.transparenciaDesc')}</p>
               </div>
-              <div>
-                <h4 className="font-bold text-brand-text-heading text-sm">Cero Burocracia</h4>
-                <p className="text-xs text-brand-text-body font-light leading-relaxed">Procesos rápidos diseñados para no hacerte perder tiempo.</p>
+              <div className="space-y-1">
+                <h4 className="font-bold text-brand-primary text-sm font-serif">{t('valores.compromisoTitle')}</h4>
+                <p className="text-xs text-brand-text-body font-light leading-relaxed">{t('valores.compromisoDesc')}</p>
               </div>
             </div>
           </div>

@@ -94,7 +94,7 @@ export default function Footer() {
           {/* Column 3: Contact Info & Action */}
           <div className="space-y-3">
             <h4 className="font-bold text-xs uppercase tracking-widest text-brand-accent">
-              Contacto y Horarios
+              {t('contacto.directChannels')}
             </h4>
             <ul className="text-xs text-slate-300 space-y-2.5 font-light">
               {CONTACT_CONFIG.telefonoFijo && (
@@ -109,6 +109,9 @@ export default function Footer() {
                   <span>{CONTACT_CONFIG.email}</span>
                 </li>
               )}
+              <li className="text-[10px] text-slate-400 italic">
+                {t('contacto.subtitle')}
+              </li>
               <li className="pt-1">
                 <button
                   onClick={handleWhatsAppClick}

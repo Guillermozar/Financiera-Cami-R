@@ -13,7 +13,7 @@ const translations = {
       cancelAndBack: "Cancelar y Volver",
       whatsappBtn: "Hablar por WhatsApp",
       whatsappCTA: "Solicitar Asesoría por WhatsApp",
-      submit: "Solicitar mi Crédito Ahora",
+      submit: "Enviar solicitud.",
       submitting: "Procesando...",
       success: "¡Solicitud Recibida!",
       error: "Error"
@@ -27,31 +27,51 @@ const translations = {
       contact: "Contacto"
     },
     hero: {
-      title: "Crédito Rápido y Humano para tu Crecimiento",
-      subtitle: "En Orianza, agilizamos tus sueños con procesos sin burocracia y atención personalizada. Construimos relaciones de confianza a largo plazo.",
-      formTitle: "Solicitá tu Crédito",
+      title: "Impulsamos tu presente, construimos tu futuro.",
+      subtitle: "En Orianza creemos que cada proyecto merece una oportunidad para crecer. Por eso ofrecemos soluciones financieras responsables, ágiles y pensadas para acompañarte en cada etapa.",
+      languages: "Español • Alemán • Guaraní",
+      communicationText: "Creemos que las mejores relaciones comienzan con una comunicación clara, cercana y transparente.",
+      formTitle: "Solicitá tu crédito.",
       formSubtitle: "Completá tus datos y un asesor te contactará al instante.",
-      fieldName: "Nombre y Apellido",
-      fieldPhone: "Teléfono (WhatsApp)",
-      fieldProduct: "Tipo de Crédito Necesitado",
+      fieldName: "Nombre y apellido",
+      fieldPhone: "Número de teléfono",
+      fieldProduct: "Tipo de solicitud",
       selectPrompt: "Seleccioná una opción",
       consent: "Autorizo a Orianza a contactarme y a realizar la consulta de mi perfil crediticio de conformidad con la Ley N° 6534/20 de Protección de Datos Personales en Paraguay.",
       successMessage: "¡Excelente! Tu solicitud ha sido registrada. Te estamos redirigiendo a WhatsApp para iniciar tu atención inmediata.",
       errors: {
         nameEmpty: "El nombre y apellido son obligatorios",
         nameShort: "Mínimo 5 caracteres para tu nombre completo",
-        phoneEmpty: "El número de WhatsApp es obligatorio",
+        phoneEmpty: "El número de teléfono es obligatorio",
         phoneInvalid: "Ingresa un número válido (ej. 0981 123 456)",
-        productEmpty: "Por favor selecciona el tipo de crédito",
+        productEmpty: "Por favor selecciona el tipo de crédito/solicitud",
         consentRequired: "Debes aceptar la política de protección de datos personales"
       }
+    },
+    franjaDestacada: {
+      text: "Impulsá tus proyectos con soluciones financieras de hasta G. 15.000.000 • Hasta 18 cuotas • Requisitos mínimos.",
+      button: "Solicitar mi crédito"
+    },
+    porqueElegir: {
+      title: "¿Por qué elegir Orianza?",
+      cuotasTitle: "Cuotas accesibles",
+      cuotasDesc: "Opciones de financiación adaptadas a tus posibilidades.",
+      aprobacionTitle: "Aprobación rápida",
+      aprobacionDesc: "Analizamos tu solicitud con agilidad y eficiencia.",
+      requisitosTitle: "Requisitos simples",
+      requisitosDesc: "Un proceso claro con la documentación necesaria.",
+      atencionTitle: "Atención personalizada",
+      atencionDesc: "Te acompañamos durante todo el proceso."
+    },
+    oportunidades: {
+      title: "Creemos en las oportunidades",
+      text: "En Orianza creemos que un crédito representa mucho más que un respaldo financiero. Representa la posibilidad de emprender, crecer, superar desafíos y hacer realidad nuevos proyectos. Nuestro compromiso es acompañar ese camino con responsabilidad, transparencia y la confianza que cada persona merece."
     },
     quienesSomos: {
       title: "Quiénes Somos",
       subtitle: "Relaciones de confianza a largo plazo y enfoque humano.",
-      historyTitle: "Nuestra Historia y Filosofía",
-      historyText1: "En Orianza nacimos con un propósito claro: transformar el acceso al crédito en Paraguay eliminando las barreras burocráticas y priorizando a las personas. Creemos que detrás de cada solicitud de crédito hay un proyecto de vida, una familia o un comercio buscando crecer.",
-      historyText2: "Nos esforzamos por construir relaciones sólidas y duraderas con nuestros clientes, ofreciendo asesoramiento honesto, condiciones transparentes y un proceso de aprobación ágil y verdaderamente humano.",
+      historyTitle: "Nuestra historia",
+      historyText: "Orianza nació con la convicción de que acceder a una solución financiera debe ser un proceso basado en la confianza, la transparencia y el compromiso. Fundada en 2026 en Bella Vista, Itapúa, Paraguay, Orianza continúa creciendo con el propósito de brindar soluciones financieras confiables y construir relaciones duraderas basadas en la confianza y el compromiso. Con una visión orientada al crecimiento y la mejora continua, trabajamos cada día para ofrecer un servicio profesional, responsable y cercano a quienes confían en nosotros.",
       solidezTitle: "Nuestra Solidez Legal y Transparencia",
       bcpTitle: "Regulado por el BCP",
       bcpText: "Orianza opera de manera legal y transparente, bajo la supervisión y regulación del Banco Central del Paraguay, garantizando la seguridad y cumplimiento normativo en todas nuestras operaciones."
@@ -96,8 +116,9 @@ const translations = {
       ]
     },
     contacto: {
-      title: "Contacto",
-      subtitle: "Estamos aquí para escucharte. Comunicate con nosotros por cualquiera de nuestros canales oficiales.",
+      title: "Hablemos de tu próximo proyecto",
+      subtitle: "Atención en español, alemán y guaraní.",
+      address: "Bella Vista, Itapúa – Paraguay",
       formTitle: "Envianos un mensaje",
       fieldName: "Nombre Completo *",
       fieldEmail: "Correo Electrónico *",
@@ -139,7 +160,7 @@ const translations = {
       cancelAndBack: "Cancel and Go Back",
       whatsappBtn: "Chat on WhatsApp",
       whatsappCTA: "Request WhatsApp Advisory",
-      submit: "Apply for my Credit Now",
+      submit: "Send application.",
       submitting: "Processing...",
       success: "Application Received!",
       error: "Error"
@@ -153,31 +174,51 @@ const translations = {
       contact: "Contact"
     },
     hero: {
-      title: "Fast and Human Credit for Your Growth",
-      subtitle: "At Orianza, we speed up your dreams with zero-bureaucracy processes and personalized attention. We build long-term relationships of trust.",
-      formTitle: "Apply for Your Credit",
+      title: "We boost your present, we build your future.",
+      subtitle: "At Orianza, we believe every project deserves a chance to grow. That's why we offer responsible, agile financial solutions designed to support you at every stage.",
+      languages: "Español • Alemán • Guaraní",
+      communicationText: "We believe the best relationships start with clear, close, and transparent communication.",
+      formTitle: "Apply for your credit.",
       formSubtitle: "Complete your details and an advisor will contact you instantly.",
-      fieldName: "Full Name",
-      fieldPhone: "Phone (WhatsApp)",
-      fieldProduct: "Type of Credit Needed",
+      fieldName: "Full name",
+      fieldPhone: "Phone number",
+      fieldProduct: "Application type",
       selectPrompt: "Select an option",
       consent: "I authorize Orianza to contact me and check my credit profile in accordance with Law N° 6534/20 on the Protection of Personal Data in Paraguay.",
       successMessage: "Excellent! Your application has been registered. We are redirecting you to WhatsApp to start your immediate attention.",
       errors: {
         nameEmpty: "Full name is required",
         nameShort: "Minimum 5 characters for your full name",
-        phoneEmpty: "WhatsApp number is required",
+        phoneEmpty: "Phone number is required",
         phoneInvalid: "Enter a valid phone number (e.g., 0981 123 456)",
-        productEmpty: "Please select the type of credit",
+        productEmpty: "Please select the application/credit type",
         consentRequired: "You must accept the personal data protection policy"
       }
+    },
+    franjaDestacada: {
+      text: "Boost your projects with financial solutions of up to G. 15,000,000 • Up to 18 installments • Minimum requirements.",
+      button: "Apply for my credit"
+    },
+    porqueElegir: {
+      title: "Why choose Orianza?",
+      cuotasTitle: "Affordable installments",
+      cuotasDesc: "Financing options adapted to your possibilities.",
+      aprobacionTitle: "Fast approval",
+      aprobacionDesc: "We analyze your application with agility and efficiency.",
+      requisitosTitle: "Simple requirements",
+      requisitosDesc: "A clear process with the necessary documentation.",
+      atencionTitle: "Personalized support",
+      atencionDesc: "We accompany you throughout the entire process."
+    },
+    oportunidades: {
+      title: "We believe in opportunities",
+      text: "At Orianza, we believe a credit represents much more than financial backing. It represents the possibility of undertaking, growing, overcoming challenges, and making new projects a reality. Our commitment is to support that path with responsibility, transparency, and the trust that each person deserves."
     },
     quienesSomos: {
       title: "About Us",
       subtitle: "Long-term relationships of trust and a human-centric focus.",
-      historyTitle: "Our History & Philosophy",
-      historyText1: "At Orianza, we were born with a clear purpose: to transform access to credit in Paraguay by eliminating bureaucratic barriers and prioritizing people. We believe that behind every credit application is a life project, a family, or a business seeking growth.",
-      historyText2: "We strive to build solid and lasting relationships with our clients, offering honest advice, transparent conditions, and an agile and truly human approval process.",
+      historyTitle: "Our history",
+      historyText: "Orianza was born with the conviction that accessing a financial solution should be a process based on trust, transparency, and commitment. Founded in 2026 in Bella Vista, Itapúa, Paraguay, Orianza continues to grow with the purpose of providing reliable financial solutions and building long-lasting relationships based on trust and commitment. With a vision oriented towards growth and continuous improvement, we work every day to offer a professional, responsible, and close service to those who trust us.",
       solidezTitle: "Our Legal Solidity & Transparency",
       bcpTitle: "Regulated by the BCP",
       bcpText: "Orianza operates legally and transparently under the supervision and regulation of the Central Bank of Paraguay (BCP), guaranteeing security and regulatory compliance in all our operations."
@@ -222,8 +263,9 @@ const translations = {
       ]
     },
     contacto: {
-      title: "Contact Us",
-      subtitle: "We are here to listen. Contact us through any of our official channels.",
+      title: "Let's talk about your next project",
+      subtitle: "Support in Spanish, German, and Guaraní.",
+      address: "Bella Vista, Itapúa – Paraguay",
       formTitle: "Send Us a Message",
       fieldName: "Full Name *",
       fieldEmail: "Email Address *",

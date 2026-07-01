@@ -99,12 +99,22 @@ export default function Hero({ onNavigate }) {
             {t('hero.subtitle')}
           </p>
           
+          <div className="space-y-3 pt-2 text-brand-text-body">
+            <p className="text-sm font-medium text-brand-secondary">
+              {t('hero.communicationText')}
+            </p>
+            <p className="text-xs opacity-90 flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span>{t('contacto.subtitle')}: <strong className="font-semibold text-brand-primary">{t('hero.languages')}</strong></span>
+            </p>
+          </div>
+          
           <div className="flex flex-wrap gap-4 pt-4">
             <button 
               onClick={scrollToForm}
               className="bg-brand-primary hover:brightness-105 text-white px-8 py-4 rounded-xl font-bold text-sm transition-all shadow-md shadow-brand-primary/10 active:scale-95 cursor-pointer flex items-center gap-2"
             >
-              <span>Solicitar mi Crédito Ahora</span>
+              <span>{t('franjaDestacada.button')}</span>
               <ArrowRight size={16} />
             </button>
             <button 

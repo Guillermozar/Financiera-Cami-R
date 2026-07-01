@@ -1,4 +1,4 @@
-import { Mail, Phone, MessageSquare, Clock, ArrowLeft, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Mail, Phone, MessageSquare, Clock, ArrowLeft, CheckCircle2, AlertCircle, MapPin } from 'lucide-react';
 import { useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { CONTACT_CONFIG, getWhatsAppLink } from '../config';
@@ -114,6 +114,17 @@ export default function ContactoPage({ onNavigate }) {
                   <span className="text-sm">{CONTACT_CONFIG.email || '—'}</span>
                 </div>
               </a>
+
+              {/* Location Row */}
+              <div 
+                className="flex items-center gap-3.5 p-3.5 border border-brand-border rounded-2xl font-bold"
+              >
+                <MapPin size={20} className="shrink-0 text-brand-primary" />
+                <div className="flex flex-col text-brand-text-heading">
+                  <span className="text-xs font-semibold opacity-75">{language === 'es' ? 'Dirección' : 'Address'}</span>
+                  <span className="text-sm font-normal">{CONTACT_CONFIG.direccion || '—'}</span>
+                </div>
+              </div>
 
               <div className="flex items-start gap-3.5 p-3.5">
                 <Clock size={20} className="text-brand-primary shrink-0 mt-0.5" />
