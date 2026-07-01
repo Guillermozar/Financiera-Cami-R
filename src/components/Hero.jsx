@@ -28,15 +28,15 @@ export default function Hero({ onOpenModal }) {
           alt="Orianza Campo" 
           className="w-full h-full object-cover object-[70%_center] opacity-95" 
         />
-        {/* Horizontal overlay for text readability (left to right) - lighter to cover less of the image */}
-        <div className="absolute inset-0 bg-linear-to-r from-white/90 via-white/60 to-transparent lg:from-white/95 lg:via-white/30 lg:to-transparent" />
+        {/* Horizontal overlay for text readability - matching the client's reference for mobile */}
+        <div className="absolute inset-0 bg-linear-to-r from-white via-white/80 to-transparent lg:from-white/95 lg:via-white/30 lg:to-transparent" />
         {/* Vertical overlay to blend with the bottom page sections */}
         <div className="absolute inset-x-0 bottom-0 h-32 bg-linear-to-t from-white to-transparent" />
       </div>
       
       <div className="max-w-6xl mx-auto w-full relative z-10">
         {/* Headline and sub-text */}
-        <div className="max-w-lg lg:max-w-xl space-y-5 text-left">
+        <div className="w-[85%] sm:w-full max-w-lg lg:max-w-xl space-y-5 text-left">
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-serif text-brand-text-heading leading-tight font-normal">
             {t('hero.title')}
           </h1>
