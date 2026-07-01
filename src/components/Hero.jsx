@@ -1,7 +1,7 @@
 import { MessageSquare, ArrowRight } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { getWhatsAppLink } from '../config';
-import heroBgUrl from '../assets/hero_bg.png';
+import heroBgUrl from '../assets/hero_bg_white_left.png';
 
 /**
  * Hero Section component.
@@ -28,8 +28,7 @@ export default function Hero({ onOpenModal }) {
           alt="Orianza Campo" 
           className="w-full h-full object-cover object-[70%_center] opacity-95" 
         />
-        {/* Horizontal overlay for text readability - matching the client's reference for mobile */}
-        <div className="absolute inset-0 bg-linear-to-r from-white via-white/80 to-transparent lg:from-white/95 lg:via-white/30 lg:to-transparent" />
+        {/* The image itself now contains the white gradient on the left side, so no additional horizontal CSS overlay is needed. */}
         {/* Vertical overlay to blend with the bottom page sections */}
         <div className="absolute inset-x-0 bottom-0 h-32 bg-linear-to-t from-white to-transparent" />
       </div>
