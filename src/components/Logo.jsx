@@ -14,7 +14,7 @@ import logoPngUrl from '../assets/logo.png';
  * @param {boolean} props.lightTheme - If true, displays the logo as-is (for light backgrounds). If false, applies a CSS filter to make it white (for dark backgrounds).
  * @param {boolean} props.onlySymbol - If true, renders the logo.png symbol icon instead of the full logo.
  */
-export default function Logo({ className = '', showSubtitle = true, size = 'md', lightTheme = false, onlySymbol = false }) {
+export default function Logo({ className = '', size = 'md', lightTheme = false, onlySymbol = false }) {
   // If the logo is on a dark background (lightTheme === false), 
   // we apply a CSS filter to turn the dark parts of the SVG white so it remains highly visible.
   const themeFilterClass = lightTheme ? '' : 'brightness-0 invert';

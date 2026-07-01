@@ -86,7 +86,7 @@ export default function ContactoPage({ onNavigate }) {
               >
                 <MessageSquare size={20} className="shrink-0" />
                 <div className="flex flex-col">
-                  <span className="text-xs font-semibold opacity-75">WhatsApp Oficial</span>
+                  <span className="text-xs font-semibold opacity-75">{t('contacto.officialWhatsapp')}</span>
                   <span className="text-sm">{CONTACT_CONFIG.whatsappDisplay || '—'}</span>
                 </div>
               </button>
@@ -98,7 +98,7 @@ export default function ContactoPage({ onNavigate }) {
               >
                 <Phone size={20} className="shrink-0" />
                 <div className="flex flex-col">
-                  <span className="text-xs font-semibold opacity-75">Teléfono Fijo</span>
+                  <span className="text-xs font-semibold opacity-75">{t('contacto.landline')}</span>
                   <span className="text-sm">{CONTACT_CONFIG.telefonoFijo || '—'}</span>
                 </div>
               </a>
@@ -110,7 +110,7 @@ export default function ContactoPage({ onNavigate }) {
               >
                 <Mail size={20} className="shrink-0 text-brand-primary" />
                 <div className="flex flex-col text-brand-text-heading">
-                  <span className="text-xs font-semibold opacity-75">Correo Electrónico</span>
+                  <span className="text-xs font-semibold opacity-75">{t('contacto.emailLabel')}</span>
                   <span className="text-sm">{CONTACT_CONFIG.email || '—'}</span>
                 </div>
               </a>

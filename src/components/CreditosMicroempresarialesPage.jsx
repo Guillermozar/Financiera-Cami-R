@@ -70,7 +70,7 @@ export default function CreditosMicroempresarialesPage({ onNavigate }) {
               onClick={() => onNavigate('contacto')}
               className="border border-brand-primary/20 text-brand-primary hover:bg-brand-primary/5 px-8 py-3.5 rounded-xl font-bold text-sm transition-all active:scale-[0.98] cursor-pointer"
             >
-              Completar Formulario de Contacto
+              {t('common.contactFormBtn')}
             </button>
           </div>
         </div>

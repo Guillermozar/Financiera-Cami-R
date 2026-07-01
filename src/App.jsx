@@ -9,6 +9,7 @@ import CreditosPersonalesPage from './components/CreditosPersonalesPage';
 import CreditosMicroempresarialesPage from './components/CreditosMicroempresarialesPage';
 import DescuentoDocumentosPage from './components/DescuentoDocumentosPage';
 import ContactoPage from './components/ContactoPage';
+import LegalPage from './components/LegalPage';
 
 // Language Context provider
 import { LanguageProvider } from './context/LanguageContext';
@@ -51,7 +52,7 @@ function App() {
 
             {view === 'quienes-somos' && (
               <div className="animate-fade-in">
-                <QuienesSomosPage onNavigate={handleNavigate} />
+                <QuienesSomosPage />
               </div>
             )}
 
@@ -78,11 +79,23 @@ function App() {
                 <ContactoPage onNavigate={handleNavigate} />
               </div>
             )}
+
+            {view === 'terminos' && (
+              <div className="animate-fade-in">
+                <LegalPage type="terminos" onNavigate={handleNavigate} />
+              </div>
+            )}
+
+            {view === 'privacidad' && (
+              <div className="animate-fade-in">
+                <LegalPage type="privacidad" onNavigate={handleNavigate} />
+              </div>
+            )}
           </div>
 
           <div>
             {/* Footer */}
-            <Footer />
+            <Footer onNavigate={handleNavigate} />
           </div>
         </div>
       </div>

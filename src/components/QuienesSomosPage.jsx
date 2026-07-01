@@ -1,4 +1,4 @@
-import { ShieldCheck, Award, Users, Heart } from 'lucide-react';
+import { ShieldCheck, Users } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
 // Vector SVG of the Banco Central del Paraguay (BCP) Logo
@@ -40,7 +40,7 @@ const BcpLogoSvg = ({ className = 'w-24 h-24' }) => (
   </svg>
 );
 
-export default function QuienesSomosPage({ onNavigate }) {
+export default function QuienesSomosPage() {
   const { t } = useLanguage();
 
   return (

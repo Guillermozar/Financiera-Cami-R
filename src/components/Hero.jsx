@@ -3,7 +3,7 @@ import { MessageSquare, ArrowRight, CheckCircle2, AlertCircle } from 'lucide-rea
 import { useLanguage } from '../context/LanguageContext';
 import { getWhatsAppLink } from '../config';
 
-export default function Hero({ onNavigate }) {
+export default function Hero() {
   const { t } = useLanguage();
   const [formData, setFormData] = useState({ name: '', phone: '', product: '', consent: false });
   const [errors, setErrors] = useState({});

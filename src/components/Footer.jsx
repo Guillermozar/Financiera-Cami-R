@@ -1,4 +1,4 @@
-import { Mail, Phone, MessageSquare, ShieldCheck, FileText, Lock } from 'lucide-react';
+import { Mail, Phone, MessageSquare, FileText, Lock } from 'lucide-react';
 import Logo from './Logo';
 import { useLanguage } from '../context/LanguageContext';
 import { CONTACT_CONFIG, getWhatsAppLink } from '../config';
@@ -42,7 +42,7 @@ const BcpLogoSvgLight = ({ className = 'w-16 h-16' }) => (
   </svg>
 );
 
-export default function Footer() {
+export default function Footer({ onNavigate }) {
   const { t } = useLanguage();
 
   const handleWhatsAppClick = () => {
@@ -60,7 +60,7 @@ export default function Footer() {
           {/* Column 1: Brand & Human-centric mission */}
           <div className="space-y-4">
             <a href="#" className="flex items-center gap-2 group w-max" aria-label="Orianza Inicio">
-              <Logo size="md" showSubtitle={true} lightTheme={false} className="transition-transform group-hover:scale-[1.02]" />
+              <Logo size="md" lightTheme={false} className="transition-transform group-hover:scale-[1.02]" />
             </a>
             <p className="text-xs text-slate-300 leading-relaxed font-light">
               {t('footer.desc')}
@@ -145,14 +145,20 @@ export default function Footer() {
           <p>{t('footer.rights')}</p>
           
           <div className="flex gap-6">
-            <a href="#terminos" className="hover:text-white transition-colors flex items-center gap-1.5">
+            <button 
+              onClick={() => onNavigate('terminos')} 
+              className="hover:text-white transition-colors flex items-center gap-1.5 cursor-pointer focus-visible:outline-none text-xs text-slate-400 font-light"
+            >
               <FileText size={14} className="text-brand-accent" />
               <span>{t('footer.links.terms')}</span>
-            </a>
-            <a href="#privacidad" className="hover:text-white transition-colors flex items-center gap-1.5">
+            </button>
+            <button 
+              onClick={() => onNavigate('privacidad')} 
+              className="hover:text-white transition-colors flex items-center gap-1.5 cursor-pointer focus-visible:outline-none text-xs text-slate-400 font-light"
+            >
               <Lock size={14} className="text-brand-accent" />
               <span>{t('footer.links.privacy')}</span>
-            </a>
+            </button>
           </div>
         </div>
 

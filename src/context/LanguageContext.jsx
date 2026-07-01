@@ -16,7 +16,8 @@ const translations = {
       submit: "Enviar solicitud.",
       submitting: "Procesando...",
       success: "¡Solicitud Recibida!",
-      error: "Error"
+      error: "Error",
+      contactFormBtn: "Completar Formulario de Contacto"
     },
     navbar: {
       about: "Quiénes Somos",
@@ -66,6 +67,17 @@ const translations = {
     oportunidades: {
       title: "Creemos en las oportunidades",
       text: "En Orianza creemos que un crédito representa mucho más que un respaldo financiero. Representa la posibilidad de emprender, crecer, superar desafíos y hacer realidad nuevos proyectos. Nuestro compromiso es acompañar ese camino con responsabilidad, transparencia y la confianza que cada persona merece."
+    },
+    valores: {
+      title: "Nuestros Valores",
+      confianzaTitle: "Confianza",
+      confianzaDesc: "Construimos relaciones duraderas y sólidas basadas en la honestidad y el respeto mutuo.",
+      agilidadTitle: "Agilidad",
+      agilidadDesc: "Respuestas rápidas y procesos simplificados para que no pierdas tiempo en alcanzar tus metas.",
+      transparenciaTitle: "Transparencia",
+      transparenciaDesc: "Condiciones claras y sin sorpresas para que decidas con total tranquilidad.",
+      compromisoTitle: "Compromiso",
+      compromisoDesc: "Te acompañamos de manera responsable y cercana en cada etapa de tu crecimiento."
     },
     quienesSomos: {
       title: "Quiénes Somos",
@@ -125,6 +137,9 @@ const translations = {
       fieldPhone: "Teléfono / WhatsApp *",
       fieldMessage: "Detalle de tu mensaje o consulta *",
       submitBtn: "Enviar Mensaje",
+      officialWhatsapp: "WhatsApp Oficial",
+      landline: "Teléfono Fijo",
+      emailLabel: "Correo Electrónico",
       successTitle: "¡Mensaje Enviado!",
       successDesc: "Hemos recibido tu consulta. Un asesor de Orianza se pondrá en contacto contigo a la brevedad.",
       directChannels: "Canales Directos",
@@ -148,6 +163,56 @@ const translations = {
         terms: "Términos y Condiciones",
         privacy: "Política de Privacidad"
       }
+    },
+    terminos: {
+      title: "Términos y Condiciones de Uso",
+      subtitle: "Por favor, lea atentamente las condiciones de uso de nuestra plataforma y servicios financieros.",
+      lastUpdated: "Última actualización: 30 de Junio de 2026",
+      sections: [
+        {
+          title: "1. Aceptación de los Términos",
+          text: "Al acceder y utilizar este sitio web y los servicios de Orianza S.A., usted acepta y se compromete a cumplir de manera obligatoria con los presentes Términos y Condiciones, así como con todas las leyes y regulaciones aplicables en la República del Paraguay."
+        },
+        {
+          title: "2. Condiciones para Solicitud de Créditos",
+          text: "Toda solicitud de crédito está sujeta a la aprobación de las políticas internas de crédito de Orianza S.A., análisis de capacidad de pago y perfil de riesgo. Las simulaciones u ofertas preliminares presentadas en el sitio web tienen un carácter meramente informativo y de ninguna manera representan un compromiso de desembolso obligatorio o una propuesta de contrato vinculante."
+        },
+        {
+          title: "3. Consentimiento de Consulta de Datos",
+          text: "De acuerdo con la Ley N° 6534/20 'De Protección de Datos Personales en Paraguay', al enviar un formulario de contacto o solicitud, el usuario autoriza expresamente a Orianza S.A. a recopilar, tratar y consultar sus antecedentes crediticios y de comportamiento de pago a través de burós de información autorizados."
+        },
+        {
+          title: "4. Uso Correcto de la Plataforma",
+          text: "El usuario se compromete a proveer información real, verídica y actualizada. El uso de identidades falsas o documentación fraudulenta anulará cualquier solicitud de inmediato y será reportado a las autoridades pertinentes según el Código Penal paraguayo."
+        },
+        {
+          title: "5. Modificaciones de los Términos",
+          text: "Orianza S.A. se reserva el derecho de modificar o actualizar estos términos en cualquier momento sin previo aviso. Es responsabilidad del usuario revisar esta sección periódicamente."
+        }
+      ]
+    },
+    privacidad: {
+      title: "Política de Privacidad",
+      subtitle: "Nos tomamos muy en serio la seguridad y privacidad de sus datos personales. Conozca cómo tratamos su información.",
+      lastUpdated: "Última actualización: 30 de Junio de 2026",
+      sections: [
+        {
+          title: "1. Recopilación de Información",
+          text: "Recopilamos información personal provista voluntariamente por usted en nuestros formularios, como nombre completo, número de teléfono, dirección de correo electrónico y detalles específicos relacionados con su solicitud financiera."
+        },
+        {
+          title: "2. Finalidad del Tratamiento de Datos",
+          text: "Utilizamos su información personal únicamente para: (a) Evaluar y procesar sus solicitudes de crédito; (b) Comunicarnos con usted para brindarle asesoramiento; (c) Cumplir con las normativas vigentes del Banco Central del Paraguay (BCP) y de la Secretaría de Prevención de Lavado de Dinero o Bienes (SEPRELAD)."
+        },
+        {
+          title: "3. Protección y Confidencialidad",
+          text: "Implementamos estrictas medidas de seguridad técnica y administrativa para evitar la pérdida, robo, uso indebido o alteración de sus datos. En cumplimiento con la Ley N° 6534/20, no compartiremos sus datos personales con terceros para fines comerciales o de marketing sin su consentimiento expreso."
+        },
+        {
+          title: "4. Derechos del Titular de Datos",
+          text: "Usted tiene derecho a solicitar el acceso, rectificación, actualización o supresión de sus datos personales. Para ejercer estos derechos, puede comunicarse directamente con nosotros a través de los canales oficiales de contacto provistos en este sitio."
+        }
+      ]
     }
   },
   en: {
@@ -163,7 +228,8 @@ const translations = {
       submit: "Send application.",
       submitting: "Processing...",
       success: "Application Received!",
-      error: "Error"
+      error: "Error",
+      contactFormBtn: "Fill Out Contact Form"
     },
     navbar: {
       about: "About Us",
@@ -213,6 +279,17 @@ const translations = {
     oportunidades: {
       title: "We believe in opportunities",
       text: "At Orianza, we believe a credit represents much more than financial backing. It represents the possibility of undertaking, growing, overcoming challenges, and making new projects a reality. Our commitment is to support that path with responsibility, transparency, and the trust that each person deserves."
+    },
+    valores: {
+      title: "Our Values",
+      confianzaTitle: "Trust",
+      confianzaDesc: "We build long-term and solid relationships based on honesty and mutual respect.",
+      agilidadTitle: "Agility",
+      agilidadDesc: "Fast responses and simplified processes so you don't waste time reaching your goals.",
+      transparenciaTitle: "Transparency",
+      transparenciaDesc: "Clear conditions without surprises, allowing you to decide with total peace of mind.",
+      compromisoTitle: "Commitment",
+      compromisoDesc: "We accompany you in a responsible and close manner throughout every stage of your growth."
     },
     quienesSomos: {
       title: "About Us",
@@ -272,6 +349,9 @@ const translations = {
       fieldPhone: "Phone / WhatsApp *",
       fieldMessage: "Details of your message or inquiry *",
       submitBtn: "Send Message",
+      officialWhatsapp: "Official WhatsApp",
+      landline: "Landline",
+      emailLabel: "Email Address",
       successTitle: "Message Sent!",
       successDesc: "We have received your inquiry. An Orianza advisor will contact you shortly.",
       directChannels: "Direct Channels",
@@ -295,6 +375,56 @@ const translations = {
         terms: "Terms & Conditions",
         privacy: "Privacy Policy"
       }
+    },
+    terminos: {
+      title: "Terms and Conditions of Use",
+      subtitle: "Please read the terms and conditions of use for our platform and financial services carefully.",
+      lastUpdated: "Last updated: June 30, 2026",
+      sections: [
+        {
+          title: "1. Acceptance of Terms",
+          text: "By accessing and using this website and the services of Orianza S.A., you accept and agree to be bound by these Terms and Conditions, as well as all applicable laws and regulations in the Republic of Paraguay."
+        },
+        {
+          title: "2. Conditions for Loan Application",
+          text: "All credit applications are subject to approval based on Orianza S.A.'s internal credit policies, payment capacity analysis, and risk profile. Any simulations or preliminary offers presented on the website are strictly informative and do not represent a commitment to disburse or a binding contract proposal."
+        },
+        {
+          title: "3. Consent for Data Verification",
+          text: "In accordance with Paraguayan Law N° 6534/20 'On Personal Data Protection', by submitting a contact or application form, the user expressly authorizes Orianza S.A. to collect, process, and query their credit history and payment behavior through authorized credit bureaus."
+        },
+        {
+          title: "4. Proper Use of the Platform",
+          text: "The user agrees to provide real, truthful, and updated information. The use of false identities or fraudulent documentation will cancel any application immediately and will be reported to the relevant authorities under the Paraguayan Penal Code."
+        },
+        {
+          title: "5. Modifications of Terms",
+          text: "Orianza S.A. reserves the right to modify or update these terms at any time without prior notice. It is the user's responsibility to check this section periodically."
+        }
+      ]
+    },
+    privacidad: {
+      title: "Privacy Policy",
+      subtitle: "We take the security and privacy of your personal data very seriously. Learn how we handle your information.",
+      lastUpdated: "Last updated: June 30, 2026",
+      sections: [
+        {
+          title: "1. Collection of Information",
+          text: "We collect personal information voluntarily provided by you in our forms, such as full name, phone number, email address, and specific details related to your financial request."
+        },
+        {
+          title: "2. Purpose of Data Processing",
+          text: "We use your personal information solely to: (a) Evaluate and process your credit applications; (b) Communicate with you to provide advice; (c) Comply with the regulations of the Central Bank of Paraguay (BCP) and the Secretariat for the Prevention of Money or Asset Laundering (SEPRELAD)."
+        },
+        {
+          title: "3. Protection and Confidentiality",
+          text: "We implement strict technical and administrative security measures to prevent the loss, theft, misuse, or alteration of your data. In compliance with Law N° 6534/20, we will not share your personal data with third parties for commercial or marketing purposes without your express consent."
+        },
+        {
+          title: "4. Data Subject Rights",
+          text: "You have the right to request access, rectification, update, or deletion of your personal data. To exercise these rights, you may contact us directly through the official contact channels provided on this site."
+        }
+      ]
     }
   }
 };
@@ -326,6 +456,7 @@ export function LanguageProvider({ children }) {
   );
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useLanguage() {
   const context = useContext(LanguageContext);
   if (!context) {

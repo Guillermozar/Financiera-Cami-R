@@ -51,7 +51,7 @@ export default function Preloader({ onComplete }) {
         {/* Brand Logo */}
         <div className="flex items-center justify-center animate-preloader-fade-in-up" style={{ animationDelay: '200ms' }}>
           <div className="animate-preloader-pulse">
-            <Logo size="xl" lightTheme={false} showSubtitle={false} onlySymbol={true} />
+            <Logo size="xl" lightTheme={false} onlySymbol={true} />
           </div>
         </div>
 

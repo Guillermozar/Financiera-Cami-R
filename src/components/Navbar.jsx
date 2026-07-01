@@ -46,7 +46,7 @@ export default function Navbar({ currentView, onNavigate }) {
           className="flex items-center gap-2 group cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary/60 rounded-lg p-1" 
           aria-label="Orianza Inicio"
         >
-          <Logo size="md" showSubtitle={true} lightTheme={true} className="transition-transform group-hover:scale-[1.02]" />
+          <Logo size="md" lightTheme={true} className="transition-transform group-hover:scale-[1.02]" />
         </button>
 
         {/* Desktop Menu */}

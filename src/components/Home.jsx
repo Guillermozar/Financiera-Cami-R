@@ -46,7 +46,7 @@ export default function Home({ onNavigate }) {
   return (
     <div className="relative">
       {/* Hero Section */}
-      <Hero onNavigate={onNavigate} />
+      <Hero />
 
       {/* Franja destacada (Highlighted Banner) */}
       <section className="bg-brand-primary text-white py-8 px-6 border-y border-white/10 relative overflow-hidden">
@@ -138,7 +138,7 @@ export default function Home({ onNavigate }) {
           {/* Story intro */}
           <div className="lg:col-span-6 space-y-6">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-primary/5 border border-brand-primary/10 text-brand-primary text-xs font-bold uppercase tracking-wider">
-              <span>Nuestra Historia</span>
+              <span>{t('quienesSomos.historyTitle')}</span>
             </div>
             <h2 className="text-3xl md:text-4xl font-serif text-brand-text-heading font-normal">
               {t('quienesSomos.historyTitle')}
