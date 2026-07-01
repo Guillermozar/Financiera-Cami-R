@@ -1,4 +1,4 @@
-import logoUrl from '../assets/logo.svg';
+import logoUrl from '../assets/logo_main.png';
 import logoPngUrl from '../assets/logo.png';
 
 /**
