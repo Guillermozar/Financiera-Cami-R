@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { MessageSquare, ArrowRight, CheckCircle2, AlertCircle } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { getWhatsAppLink } from '../config';
+import heroBgUrl from '../assets/hero_bg.png';
 
 export default function Hero() {
   const { t } = useLanguage();
@@ -84,9 +85,19 @@ export default function Hero() {
   };
 
   return (
-    <header className="pt-32 pb-16 px-6 bg-linear-to-b from-brand-bg-light to-white relative overflow-hidden flex flex-col justify-center min-h-[90vh]">
-      {/* Decorative Glows */}
-      <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-brand-primary/5 rounded-full blur-[100px] pointer-events-none" aria-hidden="true" />
+    <header className="pt-32 pb-16 px-6 relative overflow-hidden flex flex-col justify-center min-h-[90vh]">
+      {/* Background Image and Overlays */}
+      <div className="absolute inset-0 z-0 select-none pointer-events-none">
+        <img 
+          src={heroBgUrl} 
+          alt="Orianza Campo" 
+          className="w-full h-full object-cover object-[70%_center] opacity-95" 
+        />
+        {/* Horizontal overlay for text readability (left to right) */}
+        <div className="absolute inset-0 bg-linear-to-r from-white via-white/85 to-white/10 lg:from-white/95 lg:via-white/70 lg:to-transparent" />
+        {/* Vertical overlay to blend with the bottom page sections */}
+        <div className="absolute inset-x-0 bottom-0 h-32 bg-linear-to-t from-white to-transparent" />
+      </div>
       
       <div className="max-w-6xl mx-auto w-full relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
         
