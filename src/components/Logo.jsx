@@ -39,12 +39,12 @@ export default function Logo({ className = '', size = 'md', lightTheme = false, 
     );
   }
 
-  // Sizing mapping for the image height (increased to make the vertical logo larger and more readable)
+  // Sizing mapping for the image height (optimized for the horizontal logo)
   const heightClass = {
-    sm: 'h-[62px] md:h-[72px] w-auto object-contain', // Larger for the Navbar to make it highly legible
-    md: 'h-24 md:h-28 w-auto object-contain', // Larger for the Footer
-    lg: 'h-52 md:h-64 w-auto object-contain',
-  }[size] || 'h-24 w-auto object-contain';
+    sm: 'h-8 md:h-10 max-w-[65vw] md:max-w-none w-auto object-contain',
+    md: 'h-10 sm:h-12 md:h-14 lg:h-16 max-w-[65vw] md:max-w-none w-auto object-contain', // Ideal for Navbar and Footer
+    lg: 'h-20 md:h-28 max-w-[65vw] md:max-w-none w-auto object-contain',
+  }[size] || 'h-10 max-w-[65vw] w-auto object-contain';
 
   return (
     <div className={`flex items-center ${className}`}>
