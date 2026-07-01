@@ -1,20 +1,12 @@
+import { useState } from 'react';
 import { ArrowRight, Sparkles, Clock, FileCheck2, UserCheck, Heart } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import Hero from './Hero';
+import LeadCaptureModal from './LeadCaptureModal';
 
 export default function Home({ onNavigate }) {
   const { t } = useLanguage();
-
-  const scrollToForm = () => {
-    const formElement = document.getElementById('lead-capture-form');
-    if (formElement) {
-      formElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      // Small delay to let scroll finish before focusing input
-      setTimeout(() => {
-        formElement.querySelector('input')?.focus();
-      }, 500);
-    }
-  };
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Why choose us icons mapping
   const featureIcons = [
@@ -46,7 +38,7 @@ export default function Home({ onNavigate }) {
   return (
     <div className="relative">
       {/* Hero Section */}
-      <Hero />
+      <Hero onOpenModal={() => setIsModalOpen(true)} />
 
       {/* Franja destacada (Highlighted Banner) */}
       <section className="bg-brand-primary text-white py-8 px-6 border-y border-white/10 relative overflow-hidden">
@@ -57,7 +49,7 @@ export default function Home({ onNavigate }) {
             {t('franjaDestacada.text')}
           </p>
           <button
-            onClick={scrollToForm}
+            onClick={() => setIsModalOpen(true)}
             className="bg-white text-brand-primary hover:bg-brand-bg-light px-8 py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all shadow-md active:scale-95 cursor-pointer whitespace-nowrap"
           >
             {t('franjaDestacada.button')}
@@ -182,6 +174,9 @@ export default function Home({ onNavigate }) {
           </div>
         </div>
       </section>
+
+      {/* Lead Capture Modal */}
+      <LeadCaptureModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>
   );
 }
