@@ -28,43 +28,43 @@ export default function Hero({ onOpenModal }) {
           alt="Orianza Campo" 
           className="w-full h-full object-cover object-[70%_center] opacity-95" 
         />
-        {/* Horizontal overlay for text readability (left to right) */}
-        <div className="absolute inset-0 bg-linear-to-r from-white via-white/85 to-white/10 lg:from-white/95 lg:via-white/70 lg:to-transparent" />
+        {/* Horizontal overlay for text readability (left to right) - lighter to cover less of the image */}
+        <div className="absolute inset-0 bg-linear-to-r from-white/90 via-white/60 to-transparent lg:from-white/95 lg:via-white/30 lg:to-transparent" />
         {/* Vertical overlay to blend with the bottom page sections */}
         <div className="absolute inset-x-0 bottom-0 h-32 bg-linear-to-t from-white to-transparent" />
       </div>
       
       <div className="max-w-6xl mx-auto w-full relative z-10">
         {/* Headline and sub-text */}
-        <div className="max-w-2xl space-y-6 text-left">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-brand-text-heading leading-tight font-normal">
+        <div className="max-w-lg lg:max-w-xl space-y-5 text-left">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-serif text-brand-text-heading leading-tight font-normal">
             {t('hero.title')}
           </h1>
-          <p className="text-brand-text-body text-base md:text-lg font-light leading-relaxed">
+          <p className="text-brand-text-body text-sm md:text-base font-light leading-relaxed">
             {t('hero.subtitle')}
           </p>
           
-          <div className="space-y-3 pt-2 text-brand-text-body">
-            <p className="text-sm font-medium text-brand-secondary">
+          <div className="space-y-2 pt-1 text-brand-text-body">
+            <p className="text-xs md:text-sm font-medium text-brand-secondary">
               {t('hero.communicationText')}
             </p>
-            <p className="text-xs opacity-90 flex items-center gap-1.5">
+            <p className="text-[11px] md:text-xs opacity-90 flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
               <span>{t('contacto.subtitle')}: <strong className="font-semibold text-brand-primary">{t('hero.languages')}</strong></span>
             </p>
           </div>
           
-          <div className="flex flex-wrap gap-4 pt-4">
+          <div className="flex flex-wrap gap-3 pt-3">
             <button 
               onClick={onOpenModal}
-              className="bg-brand-primary hover:brightness-105 text-white px-8 py-4 rounded-xl font-bold text-sm transition-all shadow-md shadow-brand-primary/10 active:scale-95 cursor-pointer flex items-center gap-2"
+              className="bg-brand-primary hover:brightness-105 text-white px-6 py-3 rounded-lg font-bold text-xs md:text-sm transition-all shadow-md shadow-brand-primary/10 active:scale-95 cursor-pointer flex items-center gap-2"
             >
               <span>{t('franjaDestacada.button')}</span>
               <ArrowRight size={16} />
             </button>
             <button 
               onClick={handleWhatsAppClick}
-              className="bg-brand-whatsapp/10 text-brand-whatsapp hover:bg-brand-whatsapp/20 px-8 py-4 rounded-xl font-bold text-sm transition-all active:scale-95 cursor-pointer flex items-center gap-2"
+              className="bg-brand-whatsapp/10 text-brand-whatsapp hover:bg-brand-whatsapp/20 px-6 py-3 rounded-lg font-bold text-xs md:text-sm transition-all active:scale-95 cursor-pointer flex items-center gap-2"
             >
               <MessageSquare size={16} />
               <span>Hablemos por WhatsApp</span>
